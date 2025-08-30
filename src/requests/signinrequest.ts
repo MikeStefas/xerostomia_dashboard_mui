@@ -55,8 +55,7 @@ export async function SignInRequest(email: string, password:string) {
       maxAge: 60 * 60 * 7, // 7 hours
       });
     
-
-    return true;
+    return decoded.role;
     } 
   else {
     return("Wrong credentials");

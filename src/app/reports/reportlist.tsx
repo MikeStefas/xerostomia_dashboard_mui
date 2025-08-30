@@ -5,7 +5,10 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useState } from 'react';
 import { Report } from '@/types/report';
 
-export function ReportList( reports: Report[], setCurrentReportId : (id: number)=>void, name: string) {
+export function ReportList(
+    { reports, setCurrentReportID, name }: 
+    { reports: Report[], setCurrentReportID: (id: number) => void, name: string })
+    {
     const [width, setWidth] = useState(400);
 
     
@@ -18,7 +21,8 @@ export function ReportList( reports: Report[], setCurrentReportId : (id: number)
 
             {/* SHRINK BUTTON */}
             { width === 400 ?
-            (<ListItemButton onClick={() => setWidth(80)} sx = {{justifyContent: 'end'}}>
+            (<ListItemButton onClick={() => setWidth(80)} sx = {{justifyContent: 'space-between'}}>
+            Reports List
             <ArrowBackIcon />
             </ListItemButton>)
             :
@@ -52,7 +56,7 @@ export function ReportList( reports: Report[], setCurrentReportId : (id: number)
                 :
             ( 
                 reports.map((report) => (
-                <ListItemButton key={report.id} onClick={() => setCurrentReportId(report.id)}>
+                <ListItemButton key={report.id} onClick={() => setCurrentReportID(report.id)}>
                     <ListItemText
                         primary={new Date(report.createdAt).toLocaleDateString()}
                         secondary={new Date(report.createdAt).toLocaleTimeString()}

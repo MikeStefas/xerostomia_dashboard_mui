@@ -6,11 +6,11 @@ import { GetRoleFromToken } from '../funcs/getrolefromtoken';
 export async function ViewUserReports(userID:number) {
   const cookieStore = await cookies();
   let access_token = cookieStore.get('access_token')?.value || '';
-  let role = GetRoleFromToken(access_token);
+  let roleGuard = GetRoleFromToken(access_token);
   
 
   //fetch data
-  const response = await fetch(`${BACKEND_URL}/${role}/view-user-reports`, {
+  const response = await fetch(`${BACKEND_URL}/${roleGuard}/view-user-reports`, {
   method: "POST",
   headers: {
     "Authorization": `Bearer ${access_token}`,
@@ -24,7 +24,6 @@ export async function ViewUserReports(userID:number) {
     if (result.length === 0) {
       return [];
     }
-    console.log(result);
     return result;
   } else {
     return 'Failed to fetch data';

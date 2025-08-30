@@ -6,7 +6,10 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useState } from 'react';
 import { ViewUserReports } from '@/requests/viewuserreport';
 
-export function PatientList( patients: Patient[], setReports : (report : any[])=>void, setName : (name : string)=>void) {
+export function PatientList(
+    { patients, setReports, setName }: 
+    { patients: Patient[], setReports: (reports: any[]) => void, setName: (name: string) => void }) 
+    {
     const [width, setWidth] = useState(400);
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -30,7 +33,8 @@ export function PatientList( patients: Patient[], setReports : (report : any[])=
 
             {/* SHRINK BUTTON */}
             { width === 400 ?
-            (<ListItemButton onClick={() => setWidth(80)} sx = {{justifyContent: 'end'}}>
+            (<ListItemButton onClick={() => setWidth(80)} sx = {{justifyContent: 'space-between'}}>
+            Patient List
             <ArrowBackIcon />
             </ListItemButton>)
             :

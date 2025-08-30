@@ -1,11 +1,10 @@
-import AccessibleForwardIcon from '@mui/icons-material/AccessibleForward';
 import EditDocumentIcon from '@mui/icons-material/EditDocument';
-import EmergencyIcon from '@mui/icons-material/Emergency';
 import AddReactionIcon from '@mui/icons-material/AddReaction';
-import AddModeratorIcon from '@mui/icons-material/AddModerator';
 import EditIcon from '@mui/icons-material/Edit';
-import JoinInnerIcon from '@mui/icons-material/JoinInner';
 import {type Navigation} from '@toolpad/core';
+import LogoutIcon from '@mui/icons-material/Logout';
+
+
 
 export const BRANDING ={
   logo: <img src="favicon.ico" alt="Logo" />,
@@ -13,15 +12,10 @@ export const BRANDING ={
   homeUrl: '/Home',
 }
 
-export const NAVIGATION : Navigation = [
+export const NAVIGATION_ADMIN : Navigation = [
   {
     kind: 'header',
     title: 'Clinician Tabs',
-  },
-  {
-    segment: 'patients',
-    title: 'Patients',
-    icon: <AccessibleForwardIcon />,
   },
   {
     segment: 'reports',
@@ -36,28 +30,41 @@ export const NAVIGATION : Navigation = [
     title: 'Admin Tabs',
   },
   {
-    segment: 'clinicians',
-    title: 'Clinicians',
-    icon: <EmergencyIcon />,
-  },
-  {
     segment: 'create',
     title: 'Create User',
     icon: <AddReactionIcon />,
   },
   {
-    segment: 'authorize',
-    title: 'Authorize Clinician',
-    icon: <AddModeratorIcon />,
-  },
-  {
-    segment: 'edit',
-    title: 'Edit User',
+    segment: 'manage',
+    title: 'Manage Users',
     icon: <EditIcon />,
   },
   {
-    segment: 'pair',
-    title: 'Pair User',
-    icon: <JoinInnerIcon />,
+    kind: 'divider',
+  },
+  {
+    segment: 'logout',
+    title: 'Logout',
+    icon: <LogoutIcon />,
+  },
+];
+
+export const NAVIGATION_CLINICIAN : Navigation = [
+  {
+    kind: 'header',
+    title: 'Clinician Tabs',
+  },
+  {
+    segment: 'reports',
+    title: 'Reports',
+    icon: <EditDocumentIcon />,
+  },
+  {
+    kind: 'divider',
+  },
+  {
+    segment: 'logout',
+    title: 'Logout',
+    icon: <LogoutIcon />,
   },
 ];

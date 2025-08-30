@@ -9,11 +9,19 @@ import {
 import { SignInRequest } from '@/requests/signinrequest';
 import { useRouter } from 'next/navigation';
 import { signInTheme } from '@/themes/signintheme';
+import { RoleContext } from './layout';
 
 
 
 export default function NotificationsSignInPageError() {
   const router = useRouter();
+
+  const context = React.useContext(RoleContext);
+  if (!context) {
+    throw new Error("RoleContext used in RootLayout");
+  }
+  const { role, setRole } = context;
+  
 
   const providers: AuthProvider[] = [{ id: 'credentials', name: 'Email and password' }];
 
@@ -35,6 +43,7 @@ export default function NotificationsSignInPageError() {
           } else if (res === 'Wrong credentials') {
             resolve({ type: 'CredentialsSignin', error: 'Wrong credentials' });
           } else {
+            setRole(res);
             router.push('/Home');
           }
         } catch (error) {

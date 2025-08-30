@@ -1,7 +1,7 @@
 'use client';
 import { DashboardLayout } from "@toolpad/core";
 import { useState, useEffect } from 'react';
-import { ViewPatients } from "@/requests/viewpatients";
+import { ViewUsers } from "@/requests/viewusers";
 import { PatientList } from "./patientlist";
 import { ReportList } from "./reportlist";
 import Box from '@mui/material/Box';
@@ -24,7 +24,7 @@ export default function DashboardPage() {
     // Fetch patients on load
     useEffect(() => {
         const fetchPatients = async () => {
-        const data = await ViewPatients();
+        const data = await ViewUsers( "USER");
         setPatients(data);
         };
         fetchPatients();
@@ -36,8 +36,8 @@ export default function DashboardPage() {
     return (
         <DashboardLayout>
             <Box sx={{ display: 'flex', height: '100%' }}>
-                {PatientList(patients, setReports, setName)}
-                {ReportList(reports, setCurrentReportID, name)}
+                <PatientList patients={patients} setReports={setReports} setName={setName} />
+                <ReportList reports={reports} setCurrentReportID={setCurrentReportID} name={name} />
                 {currentReport && <ReportViewer report={currentReport} />}
             </Box>
             
