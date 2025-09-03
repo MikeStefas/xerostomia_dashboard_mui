@@ -3,12 +3,12 @@ import { DashboardLayout} from "@toolpad/core";
 import { Box } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { ViewUsers } from "@/requests/viewusers";
-import UserList from "./userlist";
 import { ViewUserDemographicData } from "@/requests/viewuserdemographicdata";
 import UserDataZone from "./userdatazone";
 import UserEditZone from "./usereditzone";
 import DemographicDataZone from "./demographic.datazone";
 import DemographicEditZone from "./demographic.editzone";
+import CustomUserList from "@/lists/customUserList";
 
 export default function DashboardPage() {
 
@@ -24,10 +24,10 @@ export default function DashboardPage() {
   const currentUser = users.find(r => r.userID === currentUserID) ?? null;
 
 
-  // Fetch patients on load
+  // Fetch ALL users on load
   useEffect(() => {
     const fetchAllUsers = async () => {
-      const data = await ViewUsers("ANY"); //USERS / CLINICIANS (NOT ADMINS)
+      const data = await ViewUsers("ANY"); //USERS and CLINICIANS (NOT ADMINS)
       setUsers(data);
     };
     fetchAllUsers();
@@ -49,14 +49,16 @@ export default function DashboardPage() {
     <DashboardLayout >
       <Box sx={{ display: 'flex', direction: 'row', height: '100%' }}>
 
-        <UserList 
-        users={users} 
-        setCurrentUserID={setCurrentUserID} 
+        <CustomUserList 
+        users={users}
+        setCurrentuserID={setCurrentUserID}
+        currentuserID={currentUserID}
         />
 
         {editingMode //true or false
           ?
           <Box sx={{ overflow: 'auto', width: '100%'}}>
+              {/* WILL RENDER ON EDITING MODE */}
               <UserEditZone
               currentUser={currentUser} 
               /> 
@@ -68,6 +70,7 @@ export default function DashboardPage() {
           </Box>
           :
           <Box sx={{ overflow: 'auto'}}>
+            {/* WILL RENDER ON NON EDITING MODE */}
               <UserDataZone 
               currentUser={currentUser} 
               />

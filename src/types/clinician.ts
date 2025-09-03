@@ -1,8 +1,8 @@
-export type Patient = {
+export type Clinician = {
   userID: number;
   firstName: string;
   lastName: string;
   email: string;
-  institution: " ";
-  role: "USER";
+  institution: string;
+  role: "CLINICIAN";
 };

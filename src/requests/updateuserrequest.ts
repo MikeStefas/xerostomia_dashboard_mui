@@ -12,7 +12,7 @@ export async function UpdateUserRequest(formData: User) {
   let access_token = cookieStore.get('access_token')?.value || '';
   
 
-  const { password, createdAt, updatedAt, ...DataSent } = formData;
+  const { createdAt, updatedAt, ...DataSent } = formData;
 
 
 

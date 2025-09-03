@@ -1,18 +1,10 @@
 'use client';
 import { LogoutFunc } from "@/funcs/logout";
-import { useContext, useEffect } from "react";
-import { RoleContext } from "../layout";
-
+import {  useEffect } from "react";
 
 export default function LogoutPage() {
 
-    const ctx = useContext(RoleContext);
-    if (!ctx) {
-    throw new Error("RoleContext must be used inside RootLayout");
-      }
-    const { role, setRole } = ctx;
-
-
+    
     useEffect(() => {
         LogoutFunc();
     }, []);

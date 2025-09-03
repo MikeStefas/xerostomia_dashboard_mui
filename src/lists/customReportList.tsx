@@ -5,9 +5,9 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useState } from 'react';
 import { Report } from '@/types/report';
 
-export function ReportList(
-    { reports, setCurrentReportID, name }: 
-    { reports: Report[], setCurrentReportID: (id: number) => void, name: string })
+export function CustomReportList(
+    { reports, setCurrentReportID}: 
+    { reports: Report[], setCurrentReportID: (id: number) => void})
     {
     const [width, setWidth] = useState(400);
 
@@ -29,15 +29,6 @@ export function ReportList(
             (<ListItemButton onClick={() => setWidth(400)} sx = {{justifyContent: 'center'}}>
             <ArrowForwardIcon />
             </ListItemButton>)
-            }
-
-            
-
-            {/* NAME AREA*/}
-            { width === 400 ?
-            (<Typography sx={{ p: 2}}>{name}</Typography>)
-            :
-            (" ")
             }
 
 

@@ -1,7 +1,7 @@
-import { Box, Button, TextField, Typography, Stack, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
+import { Box, Button, TextField, Typography, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { UpdateUserRequest } from '@/requests/updateuserrequest';
+import { useRouter } from 'next/navigation';
 
 export default function UserEditZone({
     currentUser,
@@ -9,6 +9,7 @@ export default function UserEditZone({
     currentUser: User | null; 
 }) 
 {   
+    const router = useRouter();
     const [formData, setFormData] = useState<User | null>(null);
 
     //update the form data state whenever currentUser changes
@@ -38,13 +39,14 @@ export default function UserEditZone({
         if (formData) {
             setFormData(formData); 
             alert(await UpdateUserRequest(formData) + "reloading to view the changes");
-            window.location.reload();
+            router.push('/Home');
         }
     };
 
     return (
         <Box sx={{ p: 2, flex: 1}}>
-            {formData ? (
+            {formData ? 
+            (
                 <Box component="form" sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                     <Typography variant="h6">Edit User Data</Typography>
 
@@ -64,9 +66,9 @@ export default function UserEditZone({
                         onChange={handleInputChange}
                     />
                     <TextField
-                        label="Email"
-                        name="email"
-                        value={formData.email}
+                        label="Password"
+                        name="password"
+                        value={formData.password}
                         fullWidth
                         onChange={handleInputChange}
                     />
@@ -78,12 +80,12 @@ export default function UserEditZone({
                         onChange={handleInputChange}
                     />
 
-                    {/* Gender  radiobutton*/}
+                    {/* ROLE  radiobutton*/}
                     <FormControl>
                         <FormLabel id="demo-radio-buttons-group-label">Role</FormLabel>
                         <RadioGroup
                             aria-labelledby="demo-radio-buttons-group-label"
-                            defaultValue="female"
+                            defaultValue=""
                             name="radio-buttons-group"
                             value={formData?.role}
                             onChange={(e)=> 
@@ -102,7 +104,8 @@ export default function UserEditZone({
                     </Button>
                     
                 </Box>
-            ) : (
+            ) : 
+            ( 
                 <Typography>Select a user to see details</Typography>
             )}
         </Box>

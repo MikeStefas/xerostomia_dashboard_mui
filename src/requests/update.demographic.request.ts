@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 
 
 
-export async function UpdateDemographicRequest(formData: DemographicData) {
+export async function UpdateDemographicRequest(formData: DemographicData, currentUserID: number){ {
 
   let cookieStore =  await cookies();
   let access_token = cookieStore.get('access_token')?.value || '';
@@ -12,14 +12,14 @@ export async function UpdateDemographicRequest(formData: DemographicData) {
   // finaly fount the problem( it was a string)
   formData.yearOfBirth = Number(formData?.yearOfBirth)
 
-
+  const payload = { ...formData, userID: currentUserID ?? 0 };
 
   const response = await fetch(`${BACKEND_URL}/admin/update-demographics`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${access_token}` },
-    body: JSON.stringify(formData)
+    body: JSON.stringify(payload)
   });
 
   if (response.ok) {
@@ -31,4 +31,5 @@ export async function UpdateDemographicRequest(formData: DemographicData) {
   else {
     return("Error updating user");
   }
+}
 }

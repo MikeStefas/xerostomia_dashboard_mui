@@ -10,7 +10,12 @@ import { SignInRequest } from '@/requests/signinrequest';
 import { useRouter } from 'next/navigation';
 import { signInTheme } from '@/themes/signintheme';
 import { RoleContext } from './layout';
+import { setCookies } from '@/funcs/setCookies';
+import { GetRoleFromToken } from '@/funcs/getrolefromtoken';
 
+/*
+  THIS IS THE SIGNIN PAGE
+*/
 
 
 export default function NotificationsSignInPageError() {
@@ -20,7 +25,7 @@ export default function NotificationsSignInPageError() {
   if (!context) {
     throw new Error("RoleContext used in RootLayout");
   }
-  const { role, setRole } = context;
+  const { setRole } = context;
   
 
   const providers: AuthProvider[] = [{ id: 'credentials', name: 'Email and password' }];
@@ -34,22 +39,30 @@ export default function NotificationsSignInPageError() {
         const email = String(formData?.get('email') || '');
         const password = String(formData?.get('password') || '');
 
-        //my code
+    
         try {
-          const res = await SignInRequest(email, password);
+          let res = await SignInRequest(email, password); //send request
 
-          if (res === 'You are not a clinician') {
-            resolve({ type: 'CredentialsSignin', error: 'You are not a clinician' });
-          } else if (res === 'Wrong credentials') {
-            resolve({ type: 'CredentialsSignin', error: 'Wrong credentials' });
-          } else {
-            setRole(res);
+          if(typeof res !== 'string'){                  //responce is valid (object with tokens)
+            let access_token = res["access_token"];
+            let refresh_token = res["refresh_token"];
+
+            let role = GetRoleFromToken(access_token);
+            await setRole(role);                        //set role
+                                       
+            await setCookies(access_token, refresh_token); //set cookies
             router.push('/Home');
+            }
+          
+          if (res === 'You are not a clinician') {       //Response when USER is found
+            resolve({ type: 'CredentialsSignin', error: 'You are not a clinician' });
           }
+          if (res === 'Wrong credentials') {       
+            resolve({ type: 'CredentialsSignin', error: 'Wrong credentials' });
+          } 
         } catch (error) {
           resolve({ type: 'CredentialsSignin', error: 'Something went wrong' });
         }
-        //my code
       }, 300);
     });
   };

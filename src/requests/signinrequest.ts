@@ -1,6 +1,5 @@
 'use server';
 import {BACKEND_URL} from "../constants";
-import { cookies } from 'next/headers';
 import  { jwtDecode }  from "jwt-decode";
 import { SigninFormSchema } from "../types/credentialtypes";
 import { TokenPayload } from "../types/tokenpayload";
@@ -24,39 +23,23 @@ export async function SignInRequest(email: string, password:string) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
-
+  console.log(response);
   if (response.ok) {
   
     const result = await response.json();
 
     //decode the token and check the role
     const decoded = await jwtDecode<TokenPayload>(result["access_token"]);
-    
+    console.log(decoded);
+
     //only block USERS. CLINICIAN/ADMIN can signin
     if(decoded.role === "USER") {
       return ('You are not a clinician');
     }
-    let cookieStore = await cookies();
-    //Make cookie for the accesstoken
-    cookieStore.set('access_token', result["access_token"], {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      path: '/',
-      maxAge: 60 * 15, // 15 mins
-      });
-
-    //make cookie for refreshtoken
-    cookieStore.set('refresh_token', result["refresh_token"], {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      path: '/',
-      maxAge: 60 * 60 * 7, // 7 hours
-      });
     
-    return decoded.role;
-    } 
+    return {access_token: result["access_token"], 
+            refresh_token: result["refresh_token"]};
+     }
   else {
     return("Wrong credentials");
   }

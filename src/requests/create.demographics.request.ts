@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 
 
 
-export async function CreateDemographicsRequest(formData: any) {
+export async function CreateDemographicsRequest(formData: DemographicData, currentUserID: number) {
 
   let cookieStore =  await cookies();
   let access_token = cookieStore.get('access_token')?.value || '';
@@ -14,13 +14,15 @@ export async function CreateDemographicsRequest(formData: any) {
   formData.yearOfBirth = Number(formData?.yearOfBirth)
 
 
-    console.log(formData)
-  const response = await fetch(`${BACKEND_URL}/admin/create-demographics`, {
+    const payload = { ...formData, userID: currentUserID ?? 0 };
+    
+    
+    const response = await fetch(`${BACKEND_URL}/admin/create-demographics`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${access_token}` },
-    body: JSON.stringify(formData)
+    body: JSON.stringify(payload)
   });
 
   if (response.ok) {

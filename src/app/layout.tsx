@@ -1,8 +1,10 @@
 'use client';
 import { NextAppProvider } from '@toolpad/core/nextjs';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
-import { BRANDING, NAVIGATION_ADMIN, NAVIGATION_CLINICIAN } from '../misc/appproviderPROPS';
-import React, { createContext, useState } from 'react';
+import { BRANDING, NAVIGATION_ADMIN, NAVIGATION_CLINICIAN } from '../appProvider/appproviderPROPS';
+import React, { createContext, useEffect, useState } from 'react';
+import AuthGuard from '.././Guards/AuthGuard';
+
 
 //ROLE CONTEXT
 type RoleContextType = {
@@ -12,17 +14,11 @@ type RoleContextType = {
 
 export const RoleContext = createContext<RoleContextType | null>(null);
 
-
-
-
-
-
 //Root Layout
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  
-  const [role, setRole] = useState('');
 
-  
+  const [role, setRole] = useState(''); // Decoded from access_token
+
 
 
   return (
@@ -35,7 +31,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               navigation={role==='ADMIN'?NAVIGATION_ADMIN:NAVIGATION_CLINICIAN}
               branding={BRANDING}
             >
-              {children}
+              {/* Unable to access the webapp without being logged in.
+              No role == no access_token*/}
+              <AuthGuard role={role}>
+                {children}
+              </AuthGuard>
             </NextAppProvider>
             
           </AppRouterCacheProvider>

@@ -3,8 +3,8 @@ import AddReactionIcon from '@mui/icons-material/AddReaction';
 import EditIcon from '@mui/icons-material/Edit';
 import {type Navigation} from '@toolpad/core';
 import LogoutIcon from '@mui/icons-material/Logout';
-
-
+import JoinInnerIcon from '@mui/icons-material/JoinInner';
+import JoinFullIcon from '@mui/icons-material/JoinFull';
 
 export const BRANDING ={
   logo: <img src="favicon.ico" alt="Logo" />,
@@ -38,6 +38,16 @@ export const NAVIGATION_ADMIN : Navigation = [
     segment: 'manage',
     title: 'Manage Users',
     icon: <EditIcon />,
+  },
+  {
+    segment: 'pair',
+    title: 'Pair',
+    icon: <JoinInnerIcon />,
+  },  
+  {
+    segment: 'seePairs',
+    title: 'See pairs',
+    icon: <JoinFullIcon />,
   },
   {
     kind: 'divider',

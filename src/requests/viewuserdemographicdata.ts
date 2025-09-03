@@ -1,15 +1,14 @@
 'use server';
 import { cookies } from 'next/headers';
 import {BACKEND_URL} from "@/constants";
-import { GetRoleFromToken } from '../funcs/getrolefromtoken';
+
 
 export async function ViewUserDemographicData(userID:number) {
   const cookieStore = await cookies();
   let access_token = cookieStore.get('access_token')?.value || '';
-  let role = GetRoleFromToken(access_token);
 
   //fetch data
-  const response = await fetch(`${BACKEND_URL}/${role}/view-user-data`, {
+  const response = await fetch(`${BACKEND_URL}/admin/view-user-data`, {
   method: "POST",
   headers: {
     "Authorization": `Bearer ${access_token}`,
@@ -23,7 +22,7 @@ export async function ViewUserDemographicData(userID:number) {
     const text = await response.text();
 
     if (!text) {
-      return 'User Data not found';
+      return null;
     }
 
     try {

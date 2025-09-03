@@ -4,6 +4,7 @@ import { Card, CardContent, Typography, Box } from '@mui/material';
 import PeopleIcon from '@mui/icons-material/People';
 import PersonIcon from '@mui/icons-material/Person';
 import DescriptionIcon from '@mui/icons-material/Description';
+import { isJwtExpired } from "@/funcs/isJwtExpired";
 
 export default function DashboardPage() {
   return (

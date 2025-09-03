@@ -31,7 +31,7 @@ export default function CreateUserPage() {
         display="flex"
         justifyContent="center"
         alignItems="center"
-        minHeight="100vh"
+        minHeight="100%"
       >
         <Box
           component="form"
