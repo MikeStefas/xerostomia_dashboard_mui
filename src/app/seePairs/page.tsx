@@ -5,8 +5,9 @@ import { ViewUsers } from "@/requests/viewusers";
 import { Clinician } from "@/types/clinician";
 import { Patient } from "@/types/patient";
 import { ViewPatientsOfClinician } from "@/requests/viewPatientsOfClinician";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import CustomUserList from "@/lists/customUserList";
+import { RefreshTokenRequest } from "@/requests/refreshToken";
 
 
 export default function SeePairsPage() {
@@ -40,7 +41,6 @@ export default function SeePairsPage() {
             <DashboardLayout>
                 <Box sx = {{ display: 'flex', justifyContent: 'space-between', height : '100%'}}>
                     <CustomUserList users={clinicians} setCurrentuserID={setCurrentClinicianID} currentuserID={currentClinicianID} />
-                    
                     <CustomUserList users={patients} setCurrentuserID={setCurrentPatientID} currentuserID={currentPatientID} />
                 </Box>
             </DashboardLayout>

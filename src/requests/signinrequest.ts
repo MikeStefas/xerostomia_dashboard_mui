@@ -23,14 +23,12 @@ export async function SignInRequest(email: string, password:string) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
-  console.log(response);
   if (response.ok) {
   
     const result = await response.json();
 
     //decode the token and check the role
     const decoded = await jwtDecode<TokenPayload>(result["access_token"]);
-    console.log(decoded);
 
     //only block USERS. CLINICIAN/ADMIN can signin
     if(decoded.role === "USER") {

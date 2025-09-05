@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import {BACKEND_URL} from "@/constants";
 import { SignupFormSchema } from "../types/credentialtypes";
 import { cookies } from "next/headers";
+import { RefreshTokenRequest } from "./refreshToken";
+import { isTokenExpired } from "@/token/session_related_funcs/isTokenExpired";
 
 
 
@@ -11,7 +13,15 @@ import { cookies } from "next/headers";
 export async function SignUp(email:string, password:string, firstName:string ,lastName:string) {
 
   const cookieStore = await cookies();
-    let access_token = cookieStore.get('access_token')?.value || '';
+  let access_token = cookieStore.get('access_token')?.value || '';
+
+  //Refresh
+  if(isTokenExpired(access_token)){
+    await RefreshTokenRequest();
+    const cookieStore = await cookies();
+    access_token = cookieStore.get('access_token')?.value || '';
+    SignUp(email, password, firstName, lastName);
+  }
 
   const data = { email : email, password: password, firstName: firstName, lastName: lastName };
 

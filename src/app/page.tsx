@@ -10,8 +10,8 @@ import { SignInRequest } from '@/requests/signinrequest';
 import { useRouter } from 'next/navigation';
 import { signInTheme } from '@/themes/signintheme';
 import { RoleContext } from './layout';
-import { setCookies } from '@/funcs/setCookies';
-import { GetRoleFromToken } from '@/funcs/getrolefromtoken';
+import { setCookies } from '@/token/session_related_funcs/setCookies';
+import { GetRoleFromToken } from '@/token/session_related_funcs/getrolefromtoken';
 
 /*
   THIS IS THE SIGNIN PAGE

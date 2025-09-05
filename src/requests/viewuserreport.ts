@@ -1,13 +1,22 @@
 'use server';
 import { cookies } from 'next/headers';
 import {BACKEND_URL} from "@/constants";
-import { GetRoleFromToken } from '../funcs/getrolefromtoken';
+import { GetRoleFromToken } from '../token/session_related_funcs/getrolefromtoken';
+import { RefreshTokenRequest } from './refreshToken';
+import { isTokenExpired } from '@/token/session_related_funcs/isTokenExpired';
 
 export async function ViewUserReports(userID:number) {
   const cookieStore = await cookies();
   let access_token = cookieStore.get('access_token')?.value || '';
   let roleGuard = GetRoleFromToken(access_token);
   
+  //Refresh
+  if(isTokenExpired(access_token)){
+    await RefreshTokenRequest();
+    const cookieStore = await cookies();
+    access_token = cookieStore.get('access_token')?.value || '';
+    roleGuard = GetRoleFromToken(access_token);
+  }
 
   //fetch data
   const response = await fetch(`${BACKEND_URL}/${roleGuard}/view-user-reports`, {

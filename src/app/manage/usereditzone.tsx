@@ -65,6 +65,7 @@ export default function UserEditZone({
                         fullWidth
                         onChange={handleInputChange}
                     />
+                    <Typography variant="body1">Password has to be over 8 characters long</Typography>
                     <TextField
                         label="Password"
                         name="password"
