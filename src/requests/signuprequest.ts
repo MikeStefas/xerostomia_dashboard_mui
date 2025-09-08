@@ -5,23 +5,18 @@ import {BACKEND_URL} from "@/constants";
 import { SignupFormSchema } from "../types/credentialtypes";
 import { cookies } from "next/headers";
 import { RefreshTokenRequest } from "./refreshToken";
-import { isTokenExpired } from "@/token/session_related_funcs/isTokenExpired";
+import { HandleTokenRefreshIfNeeded } from "@/tokenSessionFuncs/handleTokenRefreshIfNeeded";
 
 
 
 
 export async function SignUp(email:string, password:string, firstName:string ,lastName:string) {
 
+  await HandleTokenRefreshIfNeeded();
+  
   const cookieStore = await cookies();
   let access_token = cookieStore.get('access_token')?.value || '';
 
-  //Refresh
-  if(isTokenExpired(access_token)){
-    await RefreshTokenRequest();
-    const cookieStore = await cookies();
-    access_token = cookieStore.get('access_token')?.value || '';
-    SignUp(email, password, firstName, lastName);
-  }
 
   const data = { email : email, password: password, firstName: firstName, lastName: lastName };
 
@@ -29,11 +24,11 @@ export async function SignUp(email:string, password:string, firstName:string ,la
   const validationFields = SignupFormSchema.safeParse(data);
 
   if (!validationFields.success) {
-    return 'The password must be 8+ letters.\nThe email should have the schema of an email.\nFirst and Last Name must not be empty.'
+    return 'The password must be 8+ letters and have 1+ numbers.\nThe email should have the schema of an email.\nFirst and Last Name must not be empty.'
   }
 
   //request to signin
-  const response = await fetch(`${BACKEND_URL}/admin/create-user`, {
+  const response = await fetch(`${BACKEND_URL}/auth/create-user`, {
     method: "POST",
     headers: { 
       "Authorization": `Bearer ${access_token}`,

@@ -2,7 +2,6 @@
 
 import { DashboardLayout } from "@toolpad/core";
 import { Box, TextField, Button, Typography } from "@mui/material";
-import { sign } from "crypto";
 import { SignUp } from "@/requests/signuprequest";
 
 export default function CreateUserPage() {

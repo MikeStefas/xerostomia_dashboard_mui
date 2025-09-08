@@ -1,9 +1,13 @@
 'use server';
 import { cookies } from 'next/headers';
 import {BACKEND_URL} from "@/constants";
+import { HandleTokenRefreshIfNeeded } from '@/tokenSessionFuncs/handleTokenRefreshIfNeeded';
 
 
 export async function ViewPatientsOfClinician(clinicianID:number) {
+
+  await HandleTokenRefreshIfNeeded();
+  
   const cookieStore = await cookies();
   let access_token = cookieStore.get('access_token')?.value || '';
 

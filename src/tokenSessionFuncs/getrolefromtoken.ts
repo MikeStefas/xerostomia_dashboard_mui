@@ -1,5 +1,5 @@
 import { jwtDecode } from "jwt-decode";
-import { TokenPayload } from "../../types/tokenpayload";
+import { TokenPayload } from "../types/tokenpayload";
 
 export function GetRoleFromToken(access_token:string){
     try{

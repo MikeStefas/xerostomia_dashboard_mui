@@ -1,23 +1,17 @@
 'use server';
-import { isTokenExpired } from "@/token/session_related_funcs/isTokenExpired";
 import {BACKEND_URL} from "../constants";
 import { cookies } from 'next/headers';
-import { RefreshTokenRequest } from "./refreshToken";
+import { HandleTokenRefreshIfNeeded } from "@/tokenSessionFuncs/handleTokenRefreshIfNeeded";
 
 
 
 export async function CreateDemographicsRequest(formData: DemographicData, currentUserID: number) {
-
+  
+  await HandleTokenRefreshIfNeeded();
+  
   let cookieStore =  await cookies();
   let access_token = cookieStore.get('access_token')?.value || '';
 
-    //Refresh
-    if(isTokenExpired(access_token)){
-      await RefreshTokenRequest();
-      cookieStore = await cookies();
-      access_token = cookieStore.get('access_token')?.value || '';
-      CreateDemographicsRequest(formData, currentUserID);
-    }
   
   // finaly fount the problem( it was a string)
   formData.yearOfBirth = Number(formData?.yearOfBirth)
