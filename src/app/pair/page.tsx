@@ -22,9 +22,9 @@ export default function PairPage() {
     // Fetch patients on load
     useEffect(() => {
         const fetchPC = async () => {
-        let dataP = await ViewUsers("USER");
+        let dataP = await ViewUsers({chooseRole: "USER", ofClinicianID: null});
         setPatients(dataP);
-        let dataC = await ViewUsers("CLINICIAN");
+        let dataC = await ViewUsers({chooseRole: "CLINICIAN", ofClinicianID: null});
         setClinicians(dataC);
         };
         fetchPC();
@@ -47,7 +47,7 @@ export default function PairPage() {
                 variant="outlined"
                 sx ={{height:"50px"}}
                 onClick={async() => {alert(await PairClinician({patientID:currentPatientID,clinicianID:currentClinicianID}))}} 
-                 >
+                >
                     Pair
                 </Button>
 

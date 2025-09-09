@@ -10,7 +10,7 @@ import { HandleTokenRefreshIfNeeded } from "@/tokenSessionFuncs/handleTokenRefre
 
 
 
-export async function SignUp(email:string, password:string, firstName:string ,lastName:string) {
+export async function createUser(email:string, password:string, firstName:string ,lastName:string) {
 
   await HandleTokenRefreshIfNeeded();
   

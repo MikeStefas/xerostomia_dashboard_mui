@@ -1,6 +1,6 @@
 import { Box, Button, TextField, Typography, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from '@mui/material';
 import { useState, useEffect } from 'react';
-import { UpdateUserRequest } from '@/requests/updateuserrequest';
+import { UpdateUserDataRequest } from '@/requests/updateUserData';
 import { useRouter } from 'next/navigation';
 
 export default function UserEditZone({
@@ -38,7 +38,7 @@ export default function UserEditZone({
     const handleSave = async () => {
         if (formData) {
             setFormData(formData); 
-            alert(await UpdateUserRequest(formData) + "reloading to view the changes");
+            alert(await UpdateUserDataRequest(formData) + "reloading to view the changes");
             router.push('/Home');
         }
     };

@@ -3,12 +3,13 @@ import { DashboardLayout} from "@toolpad/core";
 import { Box } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { ViewUsers } from "@/requests/viewusers";
-import { ViewUserDemographicData } from "@/requests/viewuserdemographicdata";
+import { ViewDemographicData } from "@/requests/viewDemographicData";
 import UserDataZone from "./userdatazone";
 import UserEditZone from "./usereditzone";
 import DemographicDataZone from "./demographic.datazone";
 import DemographicEditZone from "./demographic.editzone";
 import CustomUserList from "@/lists/customUserList";
+import { set } from "zod";
 
 export default function DashboardPage() {
 
@@ -27,7 +28,7 @@ export default function DashboardPage() {
   // Fetch ALL users on load
   useEffect(() => {
     const fetchAllUsers = async () => {
-      const data = await ViewUsers("ANY"); //USERS and CLINICIANS (NOT ADMINS)
+      const data = await ViewUsers({chooseRole: "ANY", ofClinicianID: null}); 
       setUsers(data);
     };
     fetchAllUsers();
@@ -37,7 +38,7 @@ export default function DashboardPage() {
   //get demographic Data on user change
   useEffect(() => {
           const fetchDemographicData = async () => {
-            const data = await ViewUserDemographicData(currentUser?.userID ?? 0);
+            const data = await ViewDemographicData(currentUser?.userID ?? 0);
             setDemographicData(data);
           };
           fetchDemographicData();

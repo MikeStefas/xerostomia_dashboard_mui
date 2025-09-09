@@ -5,7 +5,7 @@ import { HandleTokenRefreshIfNeeded } from "@/tokenSessionFuncs/handleTokenRefre
 
 
 
-export async function CreateDemographicsRequest(formData: DemographicData, currentUserID: number) {
+export async function CreateDemographicDataRequest(formData: DemographicData, currentUserID: number) {
   
   await HandleTokenRefreshIfNeeded();
   
@@ -19,15 +19,15 @@ export async function CreateDemographicsRequest(formData: DemographicData, curre
 
     const payload = { ...formData, userID: currentUserID ?? 0 };
     
-    
-    const response = await fetch(`${BACKEND_URL}/admin/create-demographics`, {
+    console.log(payload);
+
+    const response = await fetch(`${BACKEND_URL}/demographics/create-demographic-data`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${access_token}` },
     body: JSON.stringify(payload)
   });
-
   if (response.ok) {
   
     const result = await response.json();

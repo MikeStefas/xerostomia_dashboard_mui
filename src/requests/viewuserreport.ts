@@ -1,8 +1,6 @@
 'use server';
 import { cookies } from 'next/headers';
 import {BACKEND_URL} from "@/constants";
-import { GetRoleFromToken } from '../tokenSessionFuncs/getrolefromtoken';
-import { RefreshTokenRequest } from './refreshToken';
 import { HandleTokenRefreshIfNeeded } from '@/tokenSessionFuncs/handleTokenRefreshIfNeeded';
 
 export async function ViewUserReports(userID:number) {
@@ -11,11 +9,11 @@ export async function ViewUserReports(userID:number) {
   
   const cookieStore = await cookies();
   let access_token = cookieStore.get('access_token')?.value || '';
-  let roleGuard = GetRoleFromToken(access_token);
+
   
 
   //fetch data
-  const response = await fetch(`${BACKEND_URL}/${roleGuard}/view-user-reports`, {
+  const response = await fetch(`${BACKEND_URL}/reports/view-user-reports`, {
   method: "POST",
   headers: {
     "Authorization": `Bearer ${access_token}`,

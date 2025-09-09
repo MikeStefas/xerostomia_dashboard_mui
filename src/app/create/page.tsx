@@ -2,7 +2,8 @@
 
 import { DashboardLayout } from "@toolpad/core";
 import { Box, TextField, Button, Typography } from "@mui/material";
-import { SignUp } from "@/requests/signuprequest";
+import { createUser } from "@/requests/createUser";
+
 
 export default function CreateUserPage() {
 
@@ -15,7 +16,7 @@ export default function CreateUserPage() {
       email: data.get('email'),
       password: data.get('password'),
     };
-    let result = await SignUp(
+    let result = await createUser(
       user.email!.toString(),
       user.password!.toString(),
       user.firstName!.toString(),

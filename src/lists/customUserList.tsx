@@ -1,7 +1,7 @@
 'use client';
 import { Clinician } from '@/types/clinician';
 import { Patient } from '@/types/patient';
-import { List, ListItem, ListItemButton, ListItemText, Paper, TextField, Typography } from '@mui/material';
+import { Box, List, ListItem, ListItemButton, ListItemText, Paper, TextField, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useState } from 'react';
@@ -21,27 +21,24 @@ export default function CustomUserList(
     );
   });
 
-  return (
-    <Paper sx={{ width: width, height: '100%', borderRight: '1px solid', borderColor: 'divider' }}>
-      <List sx={{ height: '100%', overflow: 'auto', width: width }}>
 
-        {/* COLLAPSE TOGGLE */}
+
+  return (
+    
+    <Paper sx={{ width: width, height: '100%', borderRight: '1px solid', borderColor: 'divider' }}>
+      {/* COLLAPSE TOGGLE */}
         {width === 400 ? (
-          <ListItemButton onClick={() => setWidth(80)} sx={{ justifyContent: 'space-between' }}>
+          <Box sx={{height: '25%'}}>
+          <ListItemButton onClick={() => setWidth(80)} sx=
+          {{justifyContent: 'space-between', 
+          position: 'sticky', 
+          zIndex: 1, 
+          height: '50px'}}>
             Users List
             <ArrowBackIcon />
           </ListItemButton>
-        ) : (
-          <ListItemButton onClick={() => setWidth(400)} sx={{ justifyContent: 'center' }}>
-            <ArrowForwardIcon />
-          </ListItemButton>
-        )}
-
-        {/* ONLY SHOW CONTENT IF NOT COLLAPSED */}
-        {width === 400 && (
-          <>
-            {/* SEARCH BAR */}
-            <ListItem>
+          {/* SEARCH BAR */}
+          <ListItem>
               <TextField
                 label="Search by full name"
                 variant="outlined"
@@ -50,20 +47,39 @@ export default function CustomUserList(
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </ListItem>
+            </Box>
+        ) : (
+          <ListItemButton onClick={() => setWidth(400)} sx={{ justifyContent: 'center' }}>
+            <ArrowForwardIcon />
+          </ListItemButton>
+        )}
+
+            
+      
+      <List sx={{ height: '75%', overflow: 'auto', width: width }}>
+
+        {/* LIST */}
+        {/* ONLY SHOW CONTENT IF NOT COLLAPSED */}
+        {width === 400 && (
+          <>
+            
 
             {filteredUsers.length === 0 ? (
               <Typography sx={{ p: 2 }}>No users</Typography>
             ) : (
               filteredUsers.map((user) => (
                 <ListItemButton
+                  
                   key={user.userID}
                   onClick={() => setCurrentuserID(user.userID)}
                   selected={currentuserID === user.userID}
                 >
                   <ListItemText
-                    primary={`user ID: ${user.userID} | ${user.firstName} ${user.lastName} | ${user.role}`}
+                    primary={`First Name: ${user.firstName}, Last Name: ${user.lastName}`}
                     secondary={
                       <>
+                        User ID: {user.userID} <br />
+                        Role: {user.role} <br />
                         Email: {user.email} <br />
                         Institution: {user.institution} <br />
                       </>

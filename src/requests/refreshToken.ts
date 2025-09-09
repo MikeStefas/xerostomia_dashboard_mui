@@ -15,7 +15,6 @@ export async function RefreshTokenRequest() {
         headers: { "Authorization": `Bearer ${refresh_token}` },
       });
       if (response.ok) {
-      
         const result = await response.json();
       
         const cookieStore = await cookies();
@@ -26,7 +25,7 @@ export async function RefreshTokenRequest() {
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'lax',
             path: '/',
-            maxAge: 60 * 1, // 15 mins
+            maxAge: 60 * 15, // 15 mins
             });
         
     }

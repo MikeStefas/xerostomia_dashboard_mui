@@ -47,9 +47,9 @@ export default function NotificationsSignInPageError() {
             let access_token = res["access_token"];
             let refresh_token = res["refresh_token"];
 
-            let role = GetRoleFromToken(access_token);
-            await setRole(role);                        //set role
-                                       
+            let role = await GetRoleFromToken(access_token);
+            await setRole(role);                          //set role  
+            
             await setCookies(access_token, refresh_token); //set cookies
             router.push('/Home');
             }
@@ -74,6 +74,7 @@ export default function NotificationsSignInPageError() {
         providers={providers}
         slotProps={{ emailField: { autoFocus: false }, form: { noValidate: true } }}
       />
+      
     </AppProvider>
   );
 }

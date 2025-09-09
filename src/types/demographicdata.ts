@@ -1,5 +1,5 @@
 type DemographicData =
 {
     yearOfBirth?: number;
-    gender: "male" | "female" | "NaN";
+    gender: "male" | "female" | "Missing";
 }

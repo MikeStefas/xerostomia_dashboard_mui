@@ -4,7 +4,7 @@ import {BACKEND_URL} from "@/constants";
 import { HandleTokenRefreshIfNeeded } from '@/tokenSessionFuncs/handleTokenRefreshIfNeeded';
 
 
-export async function ViewUserDemographicData(userID:number) {
+export async function ViewDemographicData(userID:number) {
 
   await HandleTokenRefreshIfNeeded();
   
@@ -13,7 +13,7 @@ export async function ViewUserDemographicData(userID:number) {
 
 
   //fetch data
-  const response = await fetch(`${BACKEND_URL}/admin/view-user-data`, {
+  const response = await fetch(`${BACKEND_URL}/demographics/view-demographic-data`, {
   method: "POST",
   headers: {
     "Authorization": `Bearer ${access_token}`,

@@ -14,8 +14,8 @@ import {
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { useState, useEffect } from 'react';
-import { UpdateDemographicRequest } from '@/requests/update.demographic.request';
-import { CreateDemographicsRequest } from '@/requests/create.demographics.request';
+import { UpdateDemographicRequest } from '@/requests/update.demographicData';
+import { CreateDemographicDataRequest } from '@/requests/create.demographicsData';
 import { useRouter } from 'next/navigation';
 
 export default function DemographicEditZone({
@@ -28,10 +28,9 @@ export default function DemographicEditZone({
   demographicData: DemographicData | null;
 }) {
 
-
   const [formData, setFormData] = useState<DemographicData>({
     yearOfBirth: 0,
-    gender: 'NaN',
+    gender: 'Missing',
   });
   const [isNew, setIsNew] = useState(true);
   const router = useRouter();
@@ -50,7 +49,7 @@ export default function DemographicEditZone({
       setIsNew(true);   
       setFormData({
         yearOfBirth: 0,
-        gender: 'NaN',
+        gender: 'Missing',
       });
     }
   }, [demographicData]);
@@ -80,7 +79,7 @@ export default function DemographicEditZone({
 
 
       if (isNew) {
-        await CreateDemographicsRequest({
+        await CreateDemographicDataRequest({
           yearOfBirth: formData.yearOfBirth,
           gender: formData.gender,
         }, currentUser.userID);
@@ -129,7 +128,7 @@ export default function DemographicEditZone({
           >
             <FormControlLabel value="female" control={<Radio />} label="Female" />
             <FormControlLabel value="male" control={<Radio />} label="Male" />
-            <FormControlLabel value="NaN" control={<Radio />} label="NaN" />
+            <FormControlLabel value="Missing" control={<Radio />} label="Missing" />
           </RadioGroup>
         </FormControl>
 

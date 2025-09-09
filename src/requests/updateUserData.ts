@@ -6,7 +6,7 @@ import { HandleTokenRefreshIfNeeded } from "@/tokenSessionFuncs/handleTokenRefre
 
 
 
-export async function UpdateUserRequest(formData: User) {
+export async function UpdateUserDataRequest(formData: User) {
 
   await HandleTokenRefreshIfNeeded();
   
@@ -20,7 +20,7 @@ export async function UpdateUserRequest(formData: User) {
 
 
 
-  const response = await fetch(`${BACKEND_URL}/admin/update-user`, {
+  const response = await fetch(`${BACKEND_URL}/user/update-user-data`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json", "Authorization": `Bearer ${access_token}` },
     body: JSON.stringify(DataSent)

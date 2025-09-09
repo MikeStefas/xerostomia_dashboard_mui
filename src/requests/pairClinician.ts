@@ -14,7 +14,7 @@ export async function PairClinician({clinicianID,patientID} : {clinicianID:numbe
 
     
     
-    const response = await fetch(`${BACKEND_URL}/admin/pair-clinician`, {
+    const response = await fetch(`${BACKEND_URL}/clinician/pair-clinician`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

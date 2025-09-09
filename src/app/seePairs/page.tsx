@@ -4,10 +4,8 @@ import { useEffect, useState } from "react";
 import { ViewUsers } from "@/requests/viewusers";
 import { Clinician } from "@/types/clinician";
 import { Patient } from "@/types/patient";
-import { ViewPatientsOfClinician } from "@/requests/viewPatientsOfClinician";
 import { Box, Button } from "@mui/material";
 import CustomUserList from "@/lists/customUserList";
-import { RefreshTokenRequest } from "@/requests/refreshToken";
 
 
 export default function SeePairsPage() {
@@ -19,7 +17,7 @@ export default function SeePairsPage() {
     // Fetch clinicians on load
     useEffect(() => {
         const fetchC = async () => {
-        let dataC = await ViewUsers("CLINICIAN");
+        let dataC = await ViewUsers({chooseRole: "CLINICIAN", ofClinicianID: null});
         setClinicians(dataC);
         };
         fetchC();
@@ -29,7 +27,7 @@ export default function SeePairsPage() {
     useEffect(() => {
         if (currentClinicianID === null) return;
         const fetchP = async () => {
-        let dataP = await ViewPatientsOfClinician(currentClinicianID);
+        let dataP = await ViewUsers({chooseRole: null, ofClinicianID: currentClinicianID});
         setPatients(dataP);
         };
         fetchP();

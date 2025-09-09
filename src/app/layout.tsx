@@ -4,6 +4,7 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import { BRANDING, NAVIGATION_ADMIN, NAVIGATION_CLINICIAN } from '../appProvider/appproviderPROPS';
 import React, { createContext, useEffect, useState } from 'react';
 import AuthGuard from '.././Guards/AuthGuard';
+import { getRoleFromCookie } from '@/tokenSessionFuncs/getRoleFromCookie';
 
 
 //ROLE CONTEXT
@@ -17,7 +18,18 @@ export const RoleContext = createContext<RoleContextType | null>(null);
 //Root Layout
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 
-  const [role, setRole] = useState(''); // Decoded from access_token
+  const [role, setRole] = useState(''); // Decoded from access_token, set on signin
+
+  useEffect(() => {
+      window.addEventListener("beforeunload", alertUser);
+      return () => {
+        window.removeEventListener("beforeunload", alertUser);
+      };
+    }, []);
+    const alertUser = (e:any) => {
+      e.preventDefault();
+      e.returnValue = "";
+    };
 
 
 

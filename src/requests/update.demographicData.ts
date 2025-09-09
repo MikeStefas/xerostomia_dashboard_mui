@@ -20,7 +20,7 @@ export async function UpdateDemographicRequest(formData: DemographicData, curren
 
   const payload = { ...formData, userID: currentUserID ?? 0 };
 
-  const response = await fetch(`${BACKEND_URL}/admin/update-demographics`, {
+  const response = await fetch(`${BACKEND_URL}/demographics/update-demographic-data`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

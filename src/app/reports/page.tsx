@@ -14,7 +14,6 @@ export default function DashboardPage() {
     
     const [patients, setPatients] = useState<Patient[]>([]);
     const [currentPatientID, setCurrentPatientID] = useState<any>(null);
-    const [name, setName] = useState('');
     const [reports, setReports] = useState<Report[]>([]);
     const [currentReportID, setCurrentReportID] = useState<any>(null);
 
@@ -23,7 +22,7 @@ export default function DashboardPage() {
     // Fetch ALL patients on load
     useEffect(() => {
         const fetchPatients = async () => {
-        const data = await ViewUsers( "USER");
+        const data = await ViewUsers({chooseRole: "USER", ofClinicianID: null}); //if role= CLINICIAN, parameters are not needed
         setPatients(data);
         };
         fetchPatients();

@@ -9,7 +9,7 @@ export async function setCookies(access_token: string, refresh_token: string) {
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       path: '/',
-      maxAge: 60 * 1, // 15 mins
+      maxAge: 60 * 15, // 15 mins
       });
 
     //make cookie for refreshtoken

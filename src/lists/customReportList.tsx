@@ -14,26 +14,24 @@ export function CustomReportList(
     
     return(
     
-    <Paper sx = {{width: width, height: '100%', borderRight: '1px solid', borderColor: 'divider'}}>
-        <List sx = {{ width: width, overflow: 'auto', height: '100%'}}>
-
-            
-
-            {/* SHRINK BUTTON */}
-            { width === 400 ?
-            (<ListItemButton onClick={() => setWidth(80)} sx = {{justifyContent: 'space-between'}}>
-            Reports List
-            <ArrowBackIcon />
-            </ListItemButton>)
-            :
-            (<ListItemButton onClick={() => setWidth(400)} sx = {{justifyContent: 'center'}}>
-            <ArrowForwardIcon />
-            </ListItemButton>)
-            }
-
+    <Paper sx = {{width: width, height: '100%'}}>
+        {/* COLLAPSE TOGGLE */}
+        { width === 400 ?
+        (<ListItemButton onClick={() => setWidth(80)} sx = 
+        {{justifyContent: 'space-between', 
+        position: 'sticky', 
+        zIndex: 1, 
+        height: '10%'}}>
+        <ArrowBackIcon />
+        </ListItemButton>)
+        :
+        (<ListItemButton onClick={() => setWidth(400)} sx = {{justifyContent: 'center'}}>
+        <ArrowForwardIcon />
+        </ListItemButton>)
+        }
 
 
-
+        <List sx = {{ width: width, overflow: 'auto', height: '90%'}}>
             {/* LIST COMPONENTS */}
             {
             width === 400 ? 
