@@ -6,12 +6,13 @@ import {
   type AuthProvider,
   type AuthResponse,
 } from '@toolpad/core/SignInPage';
-import { SignInRequest } from '@/requests/signinrequest';
+import { SignInRequest } from '@/requests/signInRequestAndSetCookies';
 import { useRouter } from 'next/navigation';
 import { signInTheme } from '@/themes/signintheme';
 import { RoleContext } from './layout';
-import { setCookies } from '@/tokenSessionFuncs/setCookies';
-import { GetRoleFromToken } from '@/tokenSessionFuncs/getrolefromtoken';
+import { set } from 'zod';
+import { get } from 'http';
+import { getRoleFromCookie } from '@/tokenSessionFuncs/getRoleFromCookie';
 
 /*
   THIS IS THE SIGNIN PAGE
@@ -43,14 +44,8 @@ export default function NotificationsSignInPageError() {
         try {
           let res = await SignInRequest(email, password); //send request
 
-          if(typeof res !== 'string'){                  //responce is valid (object with tokens)
-            let access_token = res["access_token"];
-            let refresh_token = res["refresh_token"];
-
-            let role = await GetRoleFromToken(access_token);
-            await setRole(role);                          //set role  
-            
-            await setCookies(access_token, refresh_token); //set cookies
+          if(typeof res !== 'string'){                  //responce is valid (boolean)
+            setRole(await getRoleFromCookie());         //set global role
             router.push('/Home');
             }
           

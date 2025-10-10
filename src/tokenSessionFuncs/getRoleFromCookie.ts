@@ -7,7 +7,12 @@ import { cookies } from "next/headers";
 export async function getRoleFromCookie() {
     let cookieStore = await cookies();
     let access_token = cookieStore.get('access_token')?.value || '';
+    try{
     let role = jwtDecode<TokenPayload>(access_token).role;
     console.log(role);
     return role;
+    }
+    catch{
+        return 'EXPIRED TOKEN. CAN NOT GET ROLE';
+    }
 }

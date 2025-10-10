@@ -43,7 +43,7 @@ export default function UserEditZone({
             //reload ONLY if it was successful
             if(res === 'Success'){
                 alert(res + " .Reloading ...");
-                router.push('/Home');
+                window.location.reload();
             }
             else {
                 alert(res);

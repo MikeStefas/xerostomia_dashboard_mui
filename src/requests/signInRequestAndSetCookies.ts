@@ -3,6 +3,7 @@ import {BACKEND_URL} from "../constants";
 import  { jwtDecode }  from "jwt-decode";
 import { SigninFormSchema } from "../types/credentialtypes";
 import { TokenPayload } from "../types/tokenpayload";
+import { cookies } from "next/headers";
 
 //returns true if successful or "You are not a clinician", "Wrong credentials"
 export async function SignInRequest(email: string, password:string) {
@@ -34,11 +35,32 @@ export async function SignInRequest(email: string, password:string) {
     if(decoded.role === "USER") {
       return ('You are not a clinician');
     }
+    const access_token = result["access_token"];
+    const refresh_token = result["refresh_token"];
     
-    return {access_token: result["access_token"], 
-            refresh_token: result["refresh_token"]};
-     }
+    let cookieStore = await cookies();
+    //Make cookie for the accesstoken
+    cookieStore.set('access_token', access_token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 60 * 15, // 15 mins
+      });
+
+    //make cookie for refreshtoken
+    cookieStore.set('refresh_token', refresh_token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 60 * 60 * 7, // 7 hours
+      });
+    
+
+    }
   else {
     return("Wrong credentials");
   }
 }
+

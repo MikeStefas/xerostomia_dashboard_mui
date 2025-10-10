@@ -22,18 +22,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
  
 
-  useEffect(() => {
-      window.addEventListener("beforeunload", alertUser);
-      return () => {
-        window.removeEventListener("beforeunload", alertUser);
-      };
-    }, []);
-    const alertUser = (e:any) => {
-      e.preventDefault();
-      e.returnValue = "";
-    };
-
-
 
   return (
     <html lang="en" data-toolpad-color-scheme="dark" suppressHydrationWarning>
