@@ -20,6 +20,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   const [role, setRole] = useState(''); // Decoded from access_token, set on signin
 
+ 
+
   useEffect(() => {
       window.addEventListener("beforeunload", alertUser);
       return () => {

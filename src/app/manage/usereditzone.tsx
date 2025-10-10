@@ -38,8 +38,16 @@ export default function UserEditZone({
     const handleSave = async () => {
         if (formData) {
             setFormData(formData); 
-            alert(await UpdateUserDataRequest(formData) + "reloading to view the changes");
-            router.push('/Home');
+            let res = await UpdateUserDataRequest(formData);
+            
+            //reload ONLY if it was successful
+            if(res === 'Success'){
+                alert(res + " .Reloading ...");
+                router.push('/Home');
+            }
+            else {
+                alert(res);
+            }
         }
     };
 
@@ -98,9 +106,9 @@ export default function UserEditZone({
                         </RadioGroup>
                     </FormControl>
                             
-                   
+                
                     <Button sx ={{p:2}}
-                     onClick={handleSave}>
+                    onClick={handleSave}>
                         Save User Data
                     </Button>
                     

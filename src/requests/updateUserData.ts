@@ -26,14 +26,8 @@ export async function UpdateUserDataRequest(formData: User) {
     body: JSON.stringify(DataSent)
   });
 
-  if (response.ok) {
-  
+
     const result = await response.json();
     
-    
     return result.message;
-    } 
-  else {
-    return("Error updating user");
-  }
 }

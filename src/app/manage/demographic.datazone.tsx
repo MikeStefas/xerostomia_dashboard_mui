@@ -27,7 +27,7 @@ export default function DemographicDataZone(
             sx ={{ p: 2, borderRadius: '10px'}}
             onClick={() => setEditingMode(true)}
             >
-              <EditIcon />
+              <EditIcon />Edit mode
             </Button>
           </Box>
         ) : " "}

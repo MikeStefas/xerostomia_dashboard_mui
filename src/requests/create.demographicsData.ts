@@ -28,13 +28,10 @@ export async function CreateDemographicDataRequest(formData: DemographicData, cu
       "Authorization": `Bearer ${access_token}` },
     body: JSON.stringify(payload)
   });
-  if (response.ok) {
+
   
     const result = await response.json();
 
     return result.message;
-    } 
-  else {
-    return("Error creating demographic data");
-  }
+
 }

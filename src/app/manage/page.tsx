@@ -79,9 +79,9 @@ export default function DashboardPage() {
               currentUser={currentUser} 
               setEditingMode={setEditingMode}
               demographicData={demographicData}
-               />
+              />
           </Box>
-           }
+          }
 
       </Box>
     </DashboardLayout>

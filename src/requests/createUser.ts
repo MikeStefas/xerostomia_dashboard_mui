@@ -24,7 +24,7 @@ export async function createUser(email:string, password:string, firstName:string
   const validationFields = SignupFormSchema.safeParse(data);
 
   if (!validationFields.success) {
-    return 'The password must be 8+ letters and have 1+ numbers.\nThe email should have the schema of an email.\nFirst and Last Name must not be empty.'
+    return 'The password must be 8+ letters and have 1+ numbers---The email should have the schema of an email---First and Last Name must not be empty.'
   }
 
   //request to signin

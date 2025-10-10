@@ -18,8 +18,8 @@ export default function UserDataZone(
             <Typography><strong>First Name:</strong> {currentUser.firstName}</Typography>
             <Typography><strong>Last Name:</strong> {currentUser.lastName}</Typography>
             <Typography><strong>Email:</strong> {currentUser.email}</Typography>
-            <Typography><strong>Created:</strong> {currentUser.createdAt}</Typography>
-            <Typography><strong>Updated:</strong> {currentUser.updatedAt}</Typography>
+            <Typography><strong>Created:</strong> {new Date(currentUser.createdAt).toLocaleString()}</Typography>
+            <Typography><strong>Updated:</strong> {new Date(currentUser.updatedAt).toLocaleString()}</Typography>
             <Typography><strong>Role:</strong> {currentUser.role}</Typography>
             <Typography><strong>Institution:</strong> {currentUser.institution}</Typography>
             

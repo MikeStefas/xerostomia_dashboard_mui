@@ -27,15 +27,10 @@ export async function UpdateDemographicRequest(formData: DemographicData, curren
       "Authorization": `Bearer ${access_token}` },
     body: JSON.stringify(payload)
   });
-
-  if (response.ok) {
   
-    const result = await response.json();
+  
 
+    const result = await response.json();
     return result.message;
-    } 
-  else {
-    return("Error updating user");
-  }
 }
 }

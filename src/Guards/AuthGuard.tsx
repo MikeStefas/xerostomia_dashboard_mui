@@ -13,6 +13,6 @@ export default function AuthGuard({ children, role }: { children: React.ReactNod
     }
   }, [role, pathname, router]);
 
-  if (role === '' && pathname !== '/') return null; // or spinner
+  if (role === '' && pathname !== '/') return null; 
   return (<>{children}</>);
 }

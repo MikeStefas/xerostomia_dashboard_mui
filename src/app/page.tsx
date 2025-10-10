@@ -23,7 +23,7 @@ export default function NotificationsSignInPageError() {
 
   const context = React.useContext(RoleContext);
   if (!context) {
-    throw new Error("RoleContext used in RootLayout");
+    throw new Error("Error role context not found");
   }
   const { setRole } = context;
   

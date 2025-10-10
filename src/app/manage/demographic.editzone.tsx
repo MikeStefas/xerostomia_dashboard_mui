@@ -79,19 +79,35 @@ export default function DemographicEditZone({
 
 
       if (isNew) {
-        await CreateDemographicDataRequest({
+        let res = await CreateDemographicDataRequest({
           yearOfBirth: formData.yearOfBirth,
           gender: formData.gender,
         }, currentUser.userID);
-        alert('Demographic data created. Reloading to view changes.');
+        //alert ONLY if it was successful else display error
+        if(res === 'Success'){
+          alert(res + " .Reloading ...");
+          router.push('/Home');
+        }
+        else {
+          alert(res);
+        }
+
       } else {
-        await UpdateDemographicRequest({
+        let res = await UpdateDemographicRequest({
           yearOfBirth: formData.yearOfBirth,
           gender: formData.gender,
         }, currentUser.userID);
-        alert('Demographic data updated. Reloading to view changes.');
+
+        //alert ONLY if it was successful else display error
+        if(res === 'Success'){
+          alert(res + " .Reloading ...");
+          router.push('/Home');
+        }
+        else {
+          alert(res);
+        }
       }
-      router.push('/Home');
+
     } catch (err) {
       alert('Error saving demographic data.');
       console.error(err);
@@ -128,7 +144,7 @@ export default function DemographicEditZone({
           >
             <FormControlLabel value="female" control={<Radio />} label="Female" />
             <FormControlLabel value="male" control={<Radio />} label="Male" />
-            <FormControlLabel value="Missing" control={<Radio />} label="Missing" />
+            <FormControlLabel value="missing" control={<Radio />} label="Missing" />
           </RadioGroup>
         </FormControl>
 
