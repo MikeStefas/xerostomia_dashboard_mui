@@ -1,5 +1,4 @@
-type DemographicData =
-{
-    yearOfBirth?: number;
-    gender: "male" | "female" | "Missing";
-}
+type DemographicData = {
+  yearOfBirth?: number;
+  gender: "male" | "female" | "Missing";
+};

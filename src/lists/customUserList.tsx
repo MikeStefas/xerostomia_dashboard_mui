@@ -1,16 +1,32 @@
-'use client';
-import { Clinician } from '@/types/clinician';
-import { Patient } from '@/types/patient';
-import { Box, List, ListItem, ListItemButton, ListItemText, Paper, TextField, Typography } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { useState } from 'react';
+"use client";
+import { Clinician } from "@/types/clinician";
+import { Patient } from "@/types/patient";
+import {
+  Box,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { useState } from "react";
 
-export default function CustomUserList(
-  { users, setCurrentuserID, currentuserID }: 
-  { users: Clinician[] | Patient[] | User[], setCurrentuserID: (id: number) => void, currentuserID: number }
-) {
-  const [searchQuery, setSearchQuery] = useState('');
+export default function CustomUserList({
+  users,
+  setCurrentuserID,
+  currentuserID,
+  nameOfList,
+}: {
+  users: Clinician[] | Patient[] | User[];
+  setCurrentuserID: (id: number) => void;
+  currentuserID: number;
+  nameOfList: string;
+}) {
+  const [searchQuery, setSearchQuery] = useState("");
   const [width, setWidth] = useState(400);
 
   const filteredUsers = (users ?? []).filter((user) => {
@@ -21,55 +37,60 @@ export default function CustomUserList(
     );
   });
 
-
-
   return (
-    
-    <Paper sx={{ width: width, height: '100%', borderRight: '1px solid', borderColor: 'divider' }}>
+    <Paper
+      sx={{
+        width: width,
+        height: "100%",
+        borderRight: "1px solid",
+        borderColor: "divider",
+      }}
+    >
       {/* COLLAPSE TOGGLE */}
-        {width === 400 ? (
-          <Box sx={{height: '25%'}}>
-          <ListItemButton onClick={() => setWidth(80)} sx=
-          {{justifyContent: 'space-between', 
-          position: 'sticky', 
-          zIndex: 1, 
-          height: '50px'}}>
-            Users List
+      {width === 400 ? (
+        <Box sx={{ height: "25%" }}>
+          <ListItemButton
+            onClick={() => setWidth(80)}
+            sx={{
+              justifyContent: "space-between",
+              position: "sticky",
+              zIndex: 1,
+              height: "50px",
+            }}
+          >
+            {nameOfList} List
             <ArrowBackIcon />
           </ListItemButton>
           {/* SEARCH BAR */}
           <ListItem>
-              <TextField
-                label="Search by full name"
-                variant="outlined"
-                fullWidth
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </ListItem>
-            </Box>
-        ) : (
-          <ListItemButton onClick={() => setWidth(400)} sx={{ justifyContent: 'center' }}>
-            <ArrowForwardIcon />
-          </ListItemButton>
-        )}
+            <TextField
+              label="Search by full name"
+              variant="outlined"
+              fullWidth
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </ListItem>
+        </Box>
+      ) : (
+        <ListItemButton
+          onClick={() => setWidth(400)}
+          sx={{ justifyContent: "center" }}
+        >
+          <ArrowForwardIcon />
+        </ListItemButton>
+      )}
 
-            
-      
-      <List sx={{ height: '75%', overflow: 'auto', width: width }}>
-
+      <List sx={{ height: "75%", overflow: "auto", width: width }}>
         {/* LIST */}
         {/* ONLY SHOW CONTENT IF NOT COLLAPSED */}
         {width === 400 && (
           <>
-            
-
             {filteredUsers.length === 0 ? (
               <Typography sx={{ p: 2 }}>No users</Typography>
             ) : (
               filteredUsers.map((user) => (
                 <ListItemButton
-                  
                   key={user.userID}
                   onClick={() => setCurrentuserID(user.userID)}
                   selected={currentuserID === user.userID}

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   Box,
@@ -11,12 +11,12 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
-} from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import { useState, useEffect } from 'react';
-import { UpdateDemographicRequest } from '@/requests/update.demographicData';
-import { CreateDemographicDataRequest } from '@/requests/create.demographicsData';
-import { useRouter } from 'next/navigation';
+} from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import { useState, useEffect } from "react";
+import { UpdateDemographicRequest } from "@/requests/update.demographicData";
+import { CreateDemographicDataRequest } from "@/requests/create.demographicsData";
+import { useRouter } from "next/navigation";
 
 export default function DemographicEditZone({
   currentUser,
@@ -27,10 +27,9 @@ export default function DemographicEditZone({
   setEditingMode: (editingMode: boolean) => void;
   demographicData: DemographicData | null;
 }) {
-
   const [formData, setFormData] = useState<DemographicData>({
     yearOfBirth: 0,
-    gender: 'Missing',
+    gender: "Missing",
   });
   const [isNew, setIsNew] = useState(true);
   const router = useRouter();
@@ -43,27 +42,26 @@ export default function DemographicEditZone({
         gender: demographicData.gender,
       });
       setIsNew(false);
-    } 
+    }
     // if no demographic data exist in the db
     else {
-      setIsNew(true);   
+      setIsNew(true);
       setFormData({
         yearOfBirth: 0,
-        gender: 'Missing',
+        gender: "Missing",
       });
     }
   }, [demographicData]);
 
-
   // Input handler
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]:
-        name === 'yearOfBirth'
+        name === "yearOfBirth"
           ? Number(value) //stored as number
           : value,
     }));
@@ -73,43 +71,44 @@ export default function DemographicEditZone({
   const handleSave = async () => {
     try {
       if (!currentUser) {
-        alert('No user found.');
+        alert("No user found.");
         return;
       }
 
-
       if (isNew) {
-        let res = await CreateDemographicDataRequest({
-          yearOfBirth: formData.yearOfBirth,
-          gender: formData.gender,
-        }, currentUser.userID);
+        const res = await CreateDemographicDataRequest(
+          {
+            yearOfBirth: formData.yearOfBirth,
+            gender: formData.gender,
+          },
+          currentUser.userID
+        );
         //alert ONLY if it was successful else display error
-        if(res === 'Success'){
+        if (res === "Success") {
           alert(res + " .Reloading ...");
-          router.push('/Home');
-        }
-        else {
+          router.push("/Home");
+        } else {
           alert(res);
         }
-
       } else {
-        let res = await UpdateDemographicRequest({
-          yearOfBirth: formData.yearOfBirth,
-          gender: formData.gender,
-        }, currentUser.userID);
+        const res = await UpdateDemographicRequest(
+          {
+            yearOfBirth: formData.yearOfBirth,
+            gender: formData.gender,
+          },
+          currentUser.userID
+        );
 
         //alert ONLY if it was successful else display error
-        if(res === 'Success'){
-          alert(res + " .Reloading ...");
+        if (res === "Success") {
+          alert(res + ". Reloading ...");
           window.location.reload();
-        }
-        else {
+        } else {
           alert(res);
         }
       }
-
     } catch (err) {
-      alert('Error saving demographic data.');
+      alert("Error saving demographic data.");
       console.error(err);
     }
   };
@@ -119,7 +118,7 @@ export default function DemographicEditZone({
       <Divider sx={{ my: 2 }} />
       <Box
         component="form"
-        sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
+        sx={{ display: "flex", flexDirection: "column", gap: 2 }}
       >
         <Typography variant="h6">Demographic Data</Typography>
 
@@ -128,7 +127,7 @@ export default function DemographicEditZone({
           label="Year of birth"
           name="yearOfBirth"
           type="number"
-          value={formData.yearOfBirth || ''}
+          value={formData.yearOfBirth || ""}
           fullWidth
           onChange={handleInputChange}
         />
@@ -142,9 +141,17 @@ export default function DemographicEditZone({
             value={formData.gender}
             onChange={handleInputChange}
           >
-            <FormControlLabel value="female" control={<Radio />} label="Female" />
+            <FormControlLabel
+              value="female"
+              control={<Radio />}
+              label="Female"
+            />
             <FormControlLabel value="male" control={<Radio />} label="Male" />
-            <FormControlLabel value="missing" control={<Radio />} label="Missing" />
+            <FormControlLabel
+              value="missing"
+              control={<Radio />}
+              label="Missing"
+            />
           </RadioGroup>
         </FormControl>
 
