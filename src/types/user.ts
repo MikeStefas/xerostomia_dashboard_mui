@@ -4,8 +4,8 @@ interface User {
   firstName: string;
   lastName: string;
   password: string;
-  createdAt: string; // ISO date string
-  updatedAt: string; // ISO date string
-  role: "ADMIN" | "USER" | "CLINICIAN" ; // could extend with more roles
+  createdAt: string | Date; // ISO date string
+  updatedAt: string | Date; // ISO date string
+  role: "ADMIN" | "USER" | "CLINICIAN"; // could extend with more roles
   institution: string;
 }

@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import { ViewUsers } from "@/requests/viewusers";
 import { Clinician } from "@/types/clinician";
 import { Patient } from "@/types/patient";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import CustomUserList from "@/lists/customUserList";
+import CustomDataGrid from "@/lists/customDataGrid";
 
 export default function SeePairsPage() {
   const [patients, setPatients] = useState<Patient[]>([]);
@@ -39,29 +40,42 @@ export default function SeePairsPage() {
   }, [currentClinicianID]);
 
   return (
-    <div>
-      <DashboardLayout>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            height: "100%",
-          }}
-        >
-          <CustomUserList
+    <DashboardLayout>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 4,
+          width: "100%",
+          overflowY: "auto", // make entire page scrollable
+          p: 4,
+        }}
+      >
+        {/*  CLINICIAN SELECTION */}
+        <Box sx={{ width: "90%", height: "100%" }}>
+          <Typography variant="h4" sx={{ mb: 2 }}>
+            Select a Clinician to view his Pairs
+          </Typography>
+          <CustomDataGrid
             users={clinicians}
             setCurrentuserID={setCurrentClinicianID}
-            currentuserID={currentClinicianID}
-            nameOfList="Clinicians"
-          />
-          <CustomUserList
-            users={patients}
-            setCurrentuserID={setCurrentPatientID}
-            currentuserID={currentPatientID}
-            nameOfList="Paired User"
+            includeDates={false}
           />
         </Box>
-      </DashboardLayout>
-    </div>
+
+        {/*  CLINICIAN SELECTION */}
+        <Box sx={{ width: "90%", height: "100%", paddingTop: 10 }}>
+          <Typography variant="h4" sx={{ mb: 2 }}>
+            Paired patiets
+          </Typography>
+          <CustomDataGrid
+            users={patients}
+            setCurrentuserID={setCurrentPatientID}
+            includeDates={false}
+          />
+        </Box>
+      </Box>
+    </DashboardLayout>
   );
 }

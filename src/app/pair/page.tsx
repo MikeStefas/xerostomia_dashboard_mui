@@ -1,28 +1,32 @@
 "use client";
 import { DashboardLayout } from "@toolpad/core";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Box from "@mui/material/Box";
+import { Button, Typography } from "@mui/material";
 import { ViewUsers } from "@/requests/viewusers";
 import { Patient } from "@/types/patient";
 import { Clinician } from "@/types/clinician";
-import { Button } from "@mui/material";
 import { PairClinician } from "@/requests/pairClinician";
-import CustomUserList from "@/lists/customUserList";
+import CustomDataGrid from "@/lists/customDataGrid";
 
 export default function PairPage() {
   const [patients, setPatients] = useState<Patient[]>([]);
   const [clinicians, setClinicians] = useState<Clinician[]>([]);
-  const [currentPatientID, setCurrentPatientID] = useState<any>(null);
-  const [currentClinicianID, setCurrentClinicianID] = useState<any>(null);
+  const [currentPatientID, setCurrentPatientID] = useState<number | null>(null);
+  const [currentClinicianID, setCurrentClinicianID] = useState<number | null>(
+    null
+  );
 
-  //const currentReport = reports.find(r => r.id === currentReportID);
+  const clinicianSectionRef = useRef<HTMLDivElement>(null);
 
-  // Fetch patients on load
   useEffect(() => {
     const fetchPC = async () => {
-      let dataP = await ViewUsers({ chooseRole: "USER", ofClinicianID: null });
+      const dataP = await ViewUsers({
+        chooseRole: "USER",
+        ofClinicianID: null,
+      });
       setPatients(dataP);
-      let dataC = await ViewUsers({
+      const dataC = await ViewUsers({
         chooseRole: "CLINICIAN",
         ofClinicianID: null,
       });
@@ -31,44 +35,71 @@ export default function PairPage() {
     fetchPC();
   }, []);
 
+  // 👇 scroll down automatically when a patient is selected
+  useEffect(() => {
+    if (currentPatientID && clinicianSectionRef.current) {
+      clinicianSectionRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [currentPatientID]);
+
   return (
     <DashboardLayout>
       <Box
         sx={{
           display: "flex",
-          height: "100%",
-          justifyContent: "space-between",
+          flexDirection: "column",
           alignItems: "center",
+          gap: 4,
+          width: "100%",
+          overflowY: "auto", // make entire page scrollable
+          p: 4,
         }}
       >
-        <CustomUserList
-          users={patients}
-          setCurrentuserID={setCurrentPatientID}
-          currentuserID={currentPatientID}
-          nameOfList="Patients"
-        />
+        {/*  PATIENT SELECTION */}
+        <Box sx={{ width: "90%", height: "100%" }}>
+          <Typography variant="h4" sx={{ mb: 2 }}>
+            Select a Patient to Pair
+          </Typography>
+          <CustomDataGrid
+            users={patients}
+            setCurrentuserID={setCurrentPatientID}
+            includeDates={false}
+          />
+        </Box>
 
+        {/* 👨‍⚕️ CLINICIAN SELECTION */}
+        <Box sx={{ width: "90%", height: "100%", paddingTop: 10 }}>
+          <Typography variant="h4" sx={{ mb: 2 }}>
+            Select a Clinician to Pair
+          </Typography>
+          <CustomDataGrid
+            users={clinicians}
+            setCurrentuserID={setCurrentClinicianID}
+            includeDates={false}
+          />
+        </Box>
+        {/* PAIR BUTTON */}
         <Button
-          variant="outlined"
-          sx={{ height: "50px" }}
+          variant="contained"
+          size="large"
+          sx={{ my: 4, marginTop: 10 }}
           onClick={async () => {
-            alert(
-              await PairClinician({
-                patientID: currentPatientID,
-                clinicianID: currentClinicianID,
-              })
-            );
+            if (!currentPatientID || !currentClinicianID) {
+              alert(
+                "Please select both a Patient and a Clinician before pairing."
+              );
+              return;
+            }
+
+            const result = await PairClinician({
+              patientID: currentPatientID,
+              clinicianID: currentClinicianID,
+            });
+            alert(result);
           }}
         >
-          Pair
+          Pair Selected Patient and Clinician
         </Button>
-
-        <CustomUserList
-          users={clinicians}
-          setCurrentuserID={setCurrentClinicianID}
-          currentuserID={currentClinicianID}
-          nameOfList="Clinicians"
-        />
       </Box>
     </DashboardLayout>
   );

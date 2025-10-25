@@ -8,20 +8,18 @@ import UserDataZone from "./userdatazone";
 import UserEditZone from "./usereditzone";
 import DemographicDataZone from "./demographic.datazone";
 import DemographicEditZone from "./demographic.editzone";
-import CustomUserList from "@/lists/customUserList";
+import CustomDataGrid from "@/lists/customDataGrid";
 
 export default function DashboardPage() {
-  //Demographic Data on different table in the db
   const [demographicData, setDemographicData] =
     useState<DemographicData | null>(null);
-
   const [editingMode, setEditingMode] = useState(false);
   const [users, setUsers] = useState<User[]>([]);
   const [currentUserID, setCurrentUserID] = useState<number>(0);
 
   const currentUser = users.find((r) => r.userID === currentUserID) ?? null;
 
-  // Fetch ALL users on load
+  // Fetch all users
   useEffect(() => {
     const fetchAllUsers = async () => {
       const data = await ViewUsers({ chooseRole: "ANY", ofClinicianID: null });
@@ -30,7 +28,7 @@ export default function DashboardPage() {
     fetchAllUsers();
   }, []);
 
-  //get demographic Data on user change
+  // Fetch demographic data when user changes
   useEffect(() => {
     const fetchDemographicData = async () => {
       const data = await ViewDemographicData(currentUser?.userID ?? 0);
@@ -41,34 +39,44 @@ export default function DashboardPage() {
 
   return (
     <DashboardLayout>
-      <Box sx={{ display: "flex", direction: "row", height: "100%" }}>
-        <CustomUserList
-          users={users}
-          setCurrentuserID={setCurrentUserID}
-          currentuserID={currentUserID}
-          nameOfList={"Users"}
-        />
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          width: "100%",
+          overflowY: "auto", // scrollable
+          p: 2,
+          gap: 3,
+        }}
+      >
+        {/*  DataGrid Section */}
+        <Box sx={{ width: "90%", mx: "auto", height: "100%" }}>
+          <CustomDataGrid
+            users={users}
+            setCurrentuserID={setCurrentUserID}
+            includeDates={true}
+          />
+        </Box>
 
-        {editingMode ? ( //true or false
-          <Box sx={{ overflow: "auto", width: "100%" }}>
-            {/* WILL RENDER ON EDITING MODE */}
+        {/* User / Demographic Data Section */}
+        {editingMode ? (
+          <>
             <UserEditZone currentUser={currentUser} />
             <DemographicEditZone
               currentUser={currentUser}
               setEditingMode={setEditingMode}
               demographicData={demographicData}
             />
-          </Box>
+          </>
         ) : (
-          <Box sx={{ overflow: "auto" }}>
-            {/* WILL RENDER ON NON EDITING MODE */}
+          <>
             <UserDataZone currentUser={currentUser} />
             <DemographicDataZone
               currentUser={currentUser}
               setEditingMode={setEditingMode}
               demographicData={demographicData}
             />
-          </Box>
+          </>
         )}
       </Box>
     </DashboardLayout>

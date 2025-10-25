@@ -26,7 +26,7 @@ export default function CreateUserPage() {
       institution: data.get("institution"),
       role: data.get("role"),
     };
-    alert(JSON.stringify(user));
+
     let result = await createUser(
       user.email!.toString(),
       user.password!.toString(),

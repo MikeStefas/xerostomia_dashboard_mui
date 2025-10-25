@@ -9,6 +9,10 @@ import { ReportViewer } from "./reportviewer";
 import CustomUserList from "@/lists/customUserList";
 import { ViewUserReports } from "@/requests/viewuserreport";
 import { CustomReportList } from "@/lists/customReportList";
+import CustomDataGrid from "@/lists/customDataGrid";
+import CustomReportGrid from "@/lists/customReportGrid";
+import { Paper, Typography } from "@mui/material";
+import { red } from "@mui/material/colors";
 
 export default function DashboardPage() {
   const [patients, setPatients] = useState<Patient[]>([]);
@@ -39,18 +43,65 @@ export default function DashboardPage() {
 
   return (
     <DashboardLayout>
-      <Box sx={{ display: "flex", height: "100%" }}>
-        <CustomUserList
-          users={patients}
-          setCurrentuserID={setCurrentPatientID}
-          currentuserID={currentPatientID}
-          nameOfList="Patient"
-        />
-        <CustomReportList
-          reports={reports}
-          setCurrentReportID={setCurrentReportID}
-        />
-        {currentReport && <ReportViewer report={currentReport} />}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+
+          width: "100%",
+          height: "100%",
+          overflowY: "auto",
+        }}
+      >
+        {/* Patient Grid */}
+        <Box
+          sx={{
+            marginTop: 4,
+            width: "90%",
+            mx: "auto",
+            flexShrink: 0,
+            height: "100%",
+            marginBottom: 8,
+          }}
+        >
+          <Typography variant="h4">Select a Patient</Typography>
+          <CustomDataGrid
+            users={patients}
+            setCurrentuserID={setCurrentPatientID}
+            includeDates={false}
+          />
+        </Box>
+
+        {/* Report Grid */}
+        <Box
+          sx={{
+            width: "90%",
+            mx: "auto",
+            flexShrink: 0,
+          }}
+        >
+          <Typography variant="h4">Select a Report</Typography>
+          <CustomReportGrid
+            reports={reports}
+            setCurrentReportID={setCurrentReportID}
+          />
+        </Box>
+
+        {/* Report Viewer */}
+        {currentReport && (
+          <Box
+            sx={{
+              mx: "auto",
+              marginTop: 8,
+              width: "90%",
+              flexGrow: 1,
+              overflowY: "auto",
+              minHeight: "400px",
+            }}
+          >
+            <ReportViewer report={currentReport} />
+          </Box>
+        )}
       </Box>
     </DashboardLayout>
   );
