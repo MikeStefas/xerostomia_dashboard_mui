@@ -19,11 +19,11 @@ import { CreateDemographicDataRequest } from "@/requests/create.demographicsData
 import { useRouter } from "next/navigation";
 
 export default function DemographicEditZone({
-  currentUser,
+  selectedUser,
   setEditingMode,
   demographicData,
 }: {
-  currentUser: User | null;
+  selectedUser: User | null;
   setEditingMode: (editingMode: boolean) => void;
   demographicData: DemographicData | null;
 }) {
@@ -70,7 +70,7 @@ export default function DemographicEditZone({
   // Save handler
   const handleSave = async () => {
     try {
-      if (!currentUser) {
+      if (!selectedUser) {
         alert("No user found.");
         return;
       }
@@ -81,7 +81,7 @@ export default function DemographicEditZone({
             yearOfBirth: formData.yearOfBirth,
             gender: formData.gender,
           },
-          currentUser.userID
+          selectedUser.userID
         );
         //alert ONLY if it was successful else display error
         if (res === "Success") {
@@ -96,7 +96,7 @@ export default function DemographicEditZone({
             yearOfBirth: formData.yearOfBirth,
             gender: formData.gender,
           },
-          currentUser.userID
+          selectedUser.userID
         );
 
         //alert ONLY if it was successful else display error

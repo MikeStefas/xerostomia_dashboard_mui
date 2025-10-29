@@ -1,14 +1,13 @@
-import { Clinician } from "@/types/clinician";
-import { Patient } from "@/types/patient";
 import { Report } from "@/types/report";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { memo } from "react";
 
-export default function CustomReportGrid({
+function CustomReportGrid({
   reports,
-  setCurrentReportID,
+  setSelectedReportID,
 }: {
   reports: Report[];
-  setCurrentReportID: (id: number) => void;
+  setSelectedReportID: (id: number) => void;
 }) {
   //id needed for datagrid
   const rows = reports.map((report) => ({
@@ -45,8 +44,10 @@ export default function CustomReportGrid({
       columns={columns}
       onRowClick={(params) => {
         // params.row contains the entire row object
-        setCurrentReportID(params.row.reportID);
+        setSelectedReportID(params.row.reportID);
       }}
     ></DataGrid>
   );
 }
+
+export default memo(CustomReportGrid);

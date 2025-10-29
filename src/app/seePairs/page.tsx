@@ -4,40 +4,40 @@ import { useEffect, useState } from "react";
 import { ViewUsers } from "@/requests/viewusers";
 import { Clinician } from "@/types/clinician";
 import { Patient } from "@/types/patient";
-import { Box, Button, Typography } from "@mui/material";
-import CustomUserList from "@/lists/customUserList";
+import { Box, Typography } from "@mui/material";
 import CustomDataGrid from "@/lists/customDataGrid";
 
 export default function SeePairsPage() {
   const [patients, setPatients] = useState<Patient[]>([]);
   const [clinicians, setClinicians] = useState<Clinician[]>([]);
-  const [currentClinicianID, setCurrentClinicianID] = useState<any>(null);
-  const [currentPatientID, setCurrentPatientID] = useState<any>(null);
+  const [selectedClinicianID, setSelectedClinicianID] = useState<number | null>(
+    null
+  );
 
   // Fetch clinicians on load
   useEffect(() => {
-    const fetchC = async () => {
-      let dataC = await ViewUsers({
+    const fetchClinicians = async () => {
+      const dataClinicians = await ViewUsers({
         chooseRole: "CLINICIAN",
         ofClinicianID: null,
       });
-      setClinicians(dataC);
+      setClinicians(dataClinicians);
     };
-    fetchC();
+    fetchClinicians();
   }, []);
 
-  // Fetch patients on current clinician id change
+  // Fetch patients on Selected clinician id change
   useEffect(() => {
-    if (currentClinicianID === null) return;
-    const fetchP = async () => {
-      let dataP = await ViewUsers({
+    if (selectedClinicianID === null) return;
+    const fetchPatients = async () => {
+      const dataPatients = await ViewUsers({
         chooseRole: null,
-        ofClinicianID: currentClinicianID,
+        ofClinicianID: selectedClinicianID,
       });
-      setPatients(dataP);
+      setPatients(dataPatients);
     };
-    fetchP();
-  }, [currentClinicianID]);
+    fetchPatients();
+  }, [selectedClinicianID]);
 
   return (
     <DashboardLayout>
@@ -59,7 +59,7 @@ export default function SeePairsPage() {
           </Typography>
           <CustomDataGrid
             users={clinicians}
-            setCurrentuserID={setCurrentClinicianID}
+            setSelecteduserID={setSelectedClinicianID}
             includeDates={false}
           />
         </Box>
@@ -71,7 +71,7 @@ export default function SeePairsPage() {
           </Typography>
           <CustomDataGrid
             users={patients}
-            setCurrentuserID={setCurrentPatientID}
+            setSelecteduserID={() => {}}
             includeDates={false}
           />
         </Box>

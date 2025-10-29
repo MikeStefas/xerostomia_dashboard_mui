@@ -1,14 +1,15 @@
 import { Clinician } from "@/types/clinician";
 import { Patient } from "@/types/patient";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { memo } from "react";
 
-export default function CustomDataGrid({
+function CustomDataGrid({
   users,
-  setCurrentuserID,
+  setSelecteduserID,
   includeDates,
 }: {
   users: User[] | Clinician[] | Patient[];
-  setCurrentuserID: (id: number) => void;
+  setSelecteduserID: (id: number) => void;
   includeDates: boolean;
 }) {
   //id needed for datagrid
@@ -97,8 +98,10 @@ export default function CustomDataGrid({
       columns={columns}
       onRowClick={(params) => {
         // params.row contains the entire row object
-        setCurrentuserID(params.row.userID);
+        setSelecteduserID(params.row.userID);
       }}
     ></DataGrid>
   );
 }
+
+export default memo(CustomDataGrid);

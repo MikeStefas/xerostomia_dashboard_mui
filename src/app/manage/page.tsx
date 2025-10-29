@@ -15,11 +15,11 @@ export default function DashboardPage() {
     useState<DemographicData | null>(null);
   const [editingMode, setEditingMode] = useState(false);
   const [users, setUsers] = useState<User[]>([]);
-  const [currentUserID, setCurrentUserID] = useState<number>(0);
 
-  const currentUser = users.find((r) => r.userID === currentUserID) ?? null;
+  const [selectedUserID, setSelectedUserID] = useState<number>(0);
+  const selectedUser = users.find((r) => r.userID === selectedUserID) ?? null;
 
-  // Fetch all users
+  // Fetch all users on page load
   useEffect(() => {
     const fetchAllUsers = async () => {
       const data = await ViewUsers({ chooseRole: "ANY", ofClinicianID: null });
@@ -31,11 +31,11 @@ export default function DashboardPage() {
   // Fetch demographic data when user changes
   useEffect(() => {
     const fetchDemographicData = async () => {
-      const data = await ViewDemographicData(currentUser?.userID ?? 0);
+      const data = await ViewDemographicData(selectedUser?.userID ?? 0);
       setDemographicData(data);
     };
     fetchDemographicData();
-  }, [currentUser]);
+  }, [selectedUser]);
 
   return (
     <DashboardLayout>
@@ -53,7 +53,7 @@ export default function DashboardPage() {
         <Box sx={{ width: "90%", mx: "auto", height: "100%" }}>
           <CustomDataGrid
             users={users}
-            setCurrentuserID={setCurrentUserID}
+            setSelecteduserID={setSelectedUserID}
             includeDates={true}
           />
         </Box>
@@ -61,18 +61,18 @@ export default function DashboardPage() {
         {/* User / Demographic Data Section */}
         {editingMode ? (
           <>
-            <UserEditZone currentUser={currentUser} />
+            <UserEditZone selectedUser={selectedUser} />
             <DemographicEditZone
-              currentUser={currentUser}
+              selectedUser={selectedUser}
               setEditingMode={setEditingMode}
               demographicData={demographicData}
             />
           </>
         ) : (
           <>
-            <UserDataZone currentUser={currentUser} />
+            <UserDataZone selectedUser={selectedUser} />
             <DemographicDataZone
-              currentUser={currentUser}
+              selectedUser={selectedUser}
               setEditingMode={setEditingMode}
               demographicData={demographicData}
             />

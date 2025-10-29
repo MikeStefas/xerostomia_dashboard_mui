@@ -27,7 +27,7 @@ export default function CreateUserPage() {
       role: data.get("role"),
     };
 
-    let result = await createUser(
+    const result = await createUser(
       user.email!.toString(),
       user.password!.toString(),
       user.firstName!.toString(),

@@ -1,10 +1,8 @@
 "use server";
 
-import { redirect } from "next/navigation";
 import { BACKEND_URL } from "@/constants";
 import { SignupFormSchema } from "../types/credentialtypes";
 import { cookies } from "next/headers";
-import { RefreshTokenRequest } from "./refreshToken";
 import { HandleTokenRefreshIfNeeded } from "@/tokenSessionFuncs/handleTokenRefreshIfNeeded";
 
 export async function createUser(
@@ -18,7 +16,7 @@ export async function createUser(
   await HandleTokenRefreshIfNeeded();
 
   const cookieStore = await cookies();
-  let access_token = cookieStore.get("access_token")?.value || "";
+  const access_token = cookieStore.get("access_token")?.value || "";
 
   const data = {
     email: email,

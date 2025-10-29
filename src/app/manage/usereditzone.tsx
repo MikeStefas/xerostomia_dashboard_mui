@@ -13,20 +13,20 @@ import { useState, useEffect } from "react";
 import { UpdateUserDataRequest } from "@/requests/updateUserData";
 
 export default function UserEditZone({
-  currentUser,
+  selectedUser,
 }: {
-  currentUser: User | null;
+  selectedUser: User | null;
 }) {
   const [formData, setFormData] = useState<User | null>(null);
 
-  //update the form data state whenever currentUser changes
+  //update the form data state whenever selectedUser changes
   useEffect(() => {
-    if (currentUser) {
-      setFormData(currentUser);
+    if (selectedUser) {
+      setFormData(selectedUser);
     } else {
       setFormData(null);
     }
-  }, [currentUser]);
+  }, [selectedUser]);
 
   // updates the state for a specific key in the object
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

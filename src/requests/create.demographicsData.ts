@@ -9,8 +9,8 @@ export async function CreateDemographicDataRequest(
 ) {
   await HandleTokenRefreshIfNeeded();
 
-  let cookieStore = await cookies();
-  let access_token = cookieStore.get("access_token")?.value || "";
+  const cookieStore = await cookies();
+  const access_token = cookieStore.get("access_token")?.value || "";
 
   // finaly fount the problem( it was a string)
   formData.yearOfBirth = Number(formData?.yearOfBirth);

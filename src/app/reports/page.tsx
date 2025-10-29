@@ -6,21 +6,20 @@ import Box from "@mui/material/Box";
 import { Patient } from "@/types/patient";
 import { Report } from "@/types/report";
 import { ReportViewer } from "./reportviewer";
-import CustomUserList from "@/lists/customUserList";
 import { ViewUserReports } from "@/requests/viewuserreport";
-import { CustomReportList } from "@/lists/customReportList";
 import CustomDataGrid from "@/lists/customDataGrid";
 import CustomReportGrid from "@/lists/customReportGrid";
-import { Paper, Typography } from "@mui/material";
-import { red } from "@mui/material/colors";
+import { Typography } from "@mui/material";
 
 export default function DashboardPage() {
   const [patients, setPatients] = useState<Patient[]>([]);
-  const [currentPatientID, setCurrentPatientID] = useState<any>(null);
+  const [selectedPatientID, setselectedPatientID] = useState<number | null>(
+    null
+  );
   const [reports, setReports] = useState<Report[]>([]);
-  const [currentReportID, setCurrentReportID] = useState<any>(null);
+  const [selectedReportID, setselectedReportID] = useState<number | null>(null);
 
-  const currentReport = reports.find((r) => r.id === currentReportID);
+  const selectedReport = reports.find((r) => r.id === selectedReportID);
 
   // Fetch ALL patients on load
   useEffect(() => {
@@ -33,13 +32,13 @@ export default function DashboardPage() {
 
   // Fetch reports on patient id change
   useEffect(() => {
-    if (currentPatientID === null) return;
+    if (selectedPatientID === null) return;
     const fetchReports = async () => {
-      const data = await ViewUserReports(currentPatientID);
+      const data = await ViewUserReports(selectedPatientID);
       setReports(data);
     };
     fetchReports();
-  }, [currentPatientID]);
+  }, [selectedPatientID]);
 
   return (
     <DashboardLayout>
@@ -67,7 +66,7 @@ export default function DashboardPage() {
           <Typography variant="h4">Select a Patient</Typography>
           <CustomDataGrid
             users={patients}
-            setCurrentuserID={setCurrentPatientID}
+            setSelecteduserID={setselectedPatientID}
             includeDates={false}
           />
         </Box>
@@ -83,12 +82,12 @@ export default function DashboardPage() {
           <Typography variant="h4">Select a Report</Typography>
           <CustomReportGrid
             reports={reports}
-            setCurrentReportID={setCurrentReportID}
+            setSelectedReportID={setselectedReportID}
           />
         </Box>
 
         {/* Report Viewer */}
-        {currentReport && (
+        {selectedReport && (
           <Box
             sx={{
               mx: "auto",
@@ -99,7 +98,7 @@ export default function DashboardPage() {
               minHeight: "400px",
             }}
           >
-            <ReportViewer report={currentReport} />
+            <ReportViewer report={selectedReport} />
           </Box>
         )}
       </Box>

@@ -1,6 +1,6 @@
 "use client";
 import { DashboardLayout } from "@toolpad/core";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import { Button, Typography } from "@mui/material";
 import { ViewUsers } from "@/requests/viewusers";
@@ -12,35 +12,25 @@ import CustomDataGrid from "@/lists/customDataGrid";
 export default function PairPage() {
   const [patients, setPatients] = useState<Patient[]>([]);
   const [clinicians, setClinicians] = useState<Clinician[]>([]);
-  const [currentPatientID, setCurrentPatientID] = useState<number | null>(null);
-  const [currentClinicianID, setCurrentClinicianID] = useState<number | null>(
+  const [selectedPatientID, setSelectedPatientID] = useState<number | null>(
+    null
+  );
+  const [selectedClinicianID, setSelectedClinicianID] = useState<number | null>(
     null
   );
 
-  const clinicianSectionRef = useRef<HTMLDivElement>(null);
-
+  // Fetch ALL patients and clinicians on load
   useEffect(() => {
     const fetchPC = async () => {
-      const dataP = await ViewUsers({
-        chooseRole: "USER",
-        ofClinicianID: null,
-      });
-      setPatients(dataP);
-      const dataC = await ViewUsers({
-        chooseRole: "CLINICIAN",
-        ofClinicianID: null,
-      });
+      const [fetchedPatients, dataC] = await Promise.all([
+        ViewUsers({ chooseRole: "USER", ofClinicianID: null }),
+        ViewUsers({ chooseRole: "CLINICIAN", ofClinicianID: null }),
+      ]);
+      setPatients(fetchedPatients);
       setClinicians(dataC);
     };
     fetchPC();
   }, []);
-
-  // 👇 scroll down automatically when a patient is selected
-  useEffect(() => {
-    if (currentPatientID && clinicianSectionRef.current) {
-      clinicianSectionRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [currentPatientID]);
 
   return (
     <DashboardLayout>
@@ -62,7 +52,7 @@ export default function PairPage() {
           </Typography>
           <CustomDataGrid
             users={patients}
-            setCurrentuserID={setCurrentPatientID}
+            setSelecteduserID={setSelectedPatientID}
             includeDates={false}
           />
         </Box>
@@ -74,7 +64,7 @@ export default function PairPage() {
           </Typography>
           <CustomDataGrid
             users={clinicians}
-            setCurrentuserID={setCurrentClinicianID}
+            setSelecteduserID={setSelectedClinicianID}
             includeDates={false}
           />
         </Box>
@@ -84,7 +74,7 @@ export default function PairPage() {
           size="large"
           sx={{ my: 4, marginTop: 10 }}
           onClick={async () => {
-            if (!currentPatientID || !currentClinicianID) {
+            if (!selectedPatientID || !selectedClinicianID) {
               alert(
                 "Please select both a Patient and a Clinician before pairing."
               );
@@ -92,8 +82,8 @@ export default function PairPage() {
             }
 
             const result = await PairClinician({
-              patientID: currentPatientID,
-              clinicianID: currentClinicianID,
+              patientID: selectedPatientID,
+              clinicianID: selectedClinicianID,
             });
             alert(result);
           }}
