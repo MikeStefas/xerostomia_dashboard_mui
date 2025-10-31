@@ -1,5 +1,7 @@
 import { Box, Button, Divider, Typography } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
+import { DemographicData } from "@/types/demographicdata";
+import { User } from "@/types/user";
 
 export default function DemographicDataZone({
   selectedUser,

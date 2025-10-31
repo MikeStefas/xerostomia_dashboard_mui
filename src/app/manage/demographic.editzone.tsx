@@ -16,7 +16,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import { useState, useEffect } from "react";
 import { UpdateDemographicRequest } from "@/requests/update.demographicData";
 import { CreateDemographicDataRequest } from "@/requests/create.demographicsData";
-import { useRouter } from "next/navigation";
+import { DemographicData } from "@/types/demographicdata";
+import { User } from "@/types/user";
 
 export default function DemographicEditZone({
   selectedUser,
@@ -32,7 +33,6 @@ export default function DemographicEditZone({
     gender: "Missing",
   });
   const [isNew, setIsNew] = useState(true);
-  const router = useRouter();
 
   // Update form data when demographicData changes
   useEffect(() => {
@@ -86,7 +86,7 @@ export default function DemographicEditZone({
         //alert ONLY if it was successful else display error
         if (res === "Success") {
           alert(res + " .Reloading ...");
-          router.push("/Home");
+          window.location.reload();
         } else {
           alert(res);
         }

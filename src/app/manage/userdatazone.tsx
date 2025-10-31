@@ -1,3 +1,4 @@
+import { User } from "@/types/user";
 import { Box, Typography } from "@mui/material";
 
 export default function UserDataZone({

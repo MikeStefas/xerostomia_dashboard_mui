@@ -9,9 +9,8 @@ export async function getRoleFromCookie() {
   const access_token = cookieStore.get("access_token")?.value || "";
   try {
     const role = jwtDecode<TokenPayload>(access_token).role;
-    console.log(role);
     return role;
   } catch {
-    return "EXPIRED TOKEN. CAN NOT GET ROLE";
+    return "EXPIRED / NON EXISTANT TOKEN. CAN NOT GET ROLE";
   }
 }

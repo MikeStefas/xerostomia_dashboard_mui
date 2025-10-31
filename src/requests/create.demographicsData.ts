@@ -2,6 +2,7 @@
 import { BACKEND_URL } from "../constants";
 import { cookies } from "next/headers";
 import { HandleTokenRefreshIfNeeded } from "@/tokenSessionFuncs/handleTokenRefreshIfNeeded";
+import { DemographicData } from "@/types/demographicdata";
 
 export async function CreateDemographicDataRequest(
   formData: DemographicData,
@@ -16,8 +17,6 @@ export async function CreateDemographicDataRequest(
   formData.yearOfBirth = Number(formData?.yearOfBirth);
 
   const payload = { ...formData, userID: currentUserID ?? 0 };
-
-  console.log(payload);
 
   const response = await fetch(
     `${BACKEND_URL}/demographics/create-demographic-data`,

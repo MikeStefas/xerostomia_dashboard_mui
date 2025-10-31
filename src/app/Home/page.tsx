@@ -6,12 +6,18 @@ import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import LinkIcon from "@mui/icons-material/Link";
 import AssignmentIcon from "@mui/icons-material/Assignment";
-import { useContext } from "react";
-import { RoleContext } from "../layout";
+import { useEffect, useState } from "react";
+import { getRoleFromCookie } from "@/tokenSessionFuncs/getRoleFromCookie";
 
 export default function DashboardPage() {
-  const context = useContext(RoleContext);
-
+  const [role, setRole] = useState("");
+  useEffect(() => {
+    const manageRole = async () => {
+      const role = await getRoleFromCookie();
+      setRole(role);
+    };
+    manageRole();
+  });
   return (
     <DashboardLayout sx={{ p: 3 }}>
       <Typography variant="h4" gutterBottom color="text.primary">
@@ -47,7 +53,7 @@ export default function DashboardPage() {
               </Typography>
             </Box>
             <Typography variant="body2" color="text.secondary">
-              {context?.role === "CLINICIAN" ? (
+              {role === "CLINICIAN" ? (
                 <>
                   See a list of your paired patients. Click on a patient to view
                   detailed reports and track progress.
@@ -63,7 +69,7 @@ export default function DashboardPage() {
         </Card>
 
         {/* Create User - Admin only */}
-        {context?.role === "ADMIN" && (
+        {role === "ADMIN" && (
           <Card
             sx={{
               flex: "1 1 300px",
@@ -92,7 +98,7 @@ export default function DashboardPage() {
         )}
 
         {/* Manage Users - Admin only */}
-        {context?.role === "ADMIN" && (
+        {role === "ADMIN" && (
           <Card
             sx={{
               flex: "1 1 300px",
@@ -121,7 +127,7 @@ export default function DashboardPage() {
         )}
 
         {/* Pair - Admin only */}
-        {context?.role === "ADMIN" && (
+        {role === "ADMIN" && (
           <Card
             sx={{
               flex: "1 1 300px",
@@ -150,7 +156,7 @@ export default function DashboardPage() {
         )}
 
         {/* See Pairs - Admin only */}
-        {context?.role === "ADMIN" && (
+        {role === "ADMIN" && (
           <Card
             sx={{
               flex: "1 1 300px",

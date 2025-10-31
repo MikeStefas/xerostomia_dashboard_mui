@@ -3,6 +3,7 @@
 import { HandleTokenRefreshIfNeeded } from "@/tokenSessionFuncs/handleTokenRefreshIfNeeded";
 import { BACKEND_URL } from "../constants";
 import { cookies } from "next/headers";
+import { DemographicData } from "@/types/demographicdata";
 
 export async function UpdateDemographicRequest(
   formData: DemographicData,
@@ -11,14 +12,13 @@ export async function UpdateDemographicRequest(
   {
     await HandleTokenRefreshIfNeeded();
 
-    let cookieStore = await cookies();
-    let access_token = cookieStore.get("access_token")?.value || "";
+    const cookieStore = await cookies();
+    const access_token = cookieStore.get("access_token")?.value || "";
 
     // finaly fount the problem( it was a string)
     formData.yearOfBirth = Number(formData?.yearOfBirth);
 
     const payload = { ...formData, userID: currentUserID ?? 0 };
-    console.log(payload);
 
     const response = await fetch(
       `${BACKEND_URL}/demographics/update-demographic-data`,

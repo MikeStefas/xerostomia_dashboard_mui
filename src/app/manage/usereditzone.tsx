@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import { UpdateUserDataRequest } from "@/requests/updateUserData";
+import { User } from "@/types/user";
 
 export default function UserEditZone({
   selectedUser,

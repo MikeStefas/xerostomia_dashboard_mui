@@ -1,5 +1,6 @@
 import { Clinician } from "@/types/clinician";
 import { Patient } from "@/types/patient";
+import { User } from "@/types/user";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { memo } from "react";
 

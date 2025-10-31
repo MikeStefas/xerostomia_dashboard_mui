@@ -14,6 +14,7 @@ import {
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useState } from "react";
+import { User } from "@/types/user";
 
 export default function CustomUserList({
   users,

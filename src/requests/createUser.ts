@@ -46,7 +46,6 @@ export async function createUser(
 
   if (response.ok) {
     const result = await response.json();
-    console.log(result);
     return result.message;
   } else {
     return "failed";

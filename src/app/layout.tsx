@@ -6,16 +6,10 @@ import {
   NAVIGATION_ADMIN,
   NAVIGATION_CLINICIAN,
 } from "../appProvider/appproviderPROPS";
-import React, { createContext, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import AuthGuard from ".././Guards/AuthGuard";
-
-//ROLE CONTEXT
-type RoleContextType = {
-  role: string;
-  setRole: React.Dispatch<React.SetStateAction<string>>;
-};
-
-export const RoleContext = createContext<RoleContextType | null>(null);
+import { getRoleFromCookie } from "@/tokenSessionFuncs/getRoleFromCookie";
+import CircularProgress from "@mui/material/CircularProgress";
 
 //Root Layout
 export default function RootLayout({
@@ -23,12 +17,25 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [role, setRole] = useState(""); // Decoded from access_token, set on signin
+  const [role, setRole] = useState("");
+  useEffect(() => {
+    const manageRole = async () => {
+      const role = await getRoleFromCookie();
+      setRole(role);
+    };
+    manageRole();
+  });
 
   return (
     <html lang="en" data-toolpad-color-scheme="dark" suppressHydrationWarning>
       <body>
-        <RoleContext.Provider value={{ role, setRole }}>
+        <Suspense
+          fallback={
+            <div>
+              <CircularProgress />
+            </div>
+          }
+        >
           <AppRouterCacheProvider options={{ enableCssLayer: true }}>
             <NextAppProvider
               navigation={
@@ -38,10 +45,11 @@ export default function RootLayout({
             >
               {/* Unable to access the webapp without being logged in.
               No role == no access_token*/}
+
               <AuthGuard role={role}>{children}</AuthGuard>
             </NextAppProvider>
           </AppRouterCacheProvider>
-        </RoleContext.Provider>
+        </Suspense>
       </body>
     </html>
   );

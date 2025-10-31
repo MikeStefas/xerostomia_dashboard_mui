@@ -4,11 +4,13 @@ import { Box } from "@mui/material";
 import { useState, useEffect } from "react";
 import { ViewUsers } from "@/requests/viewusers";
 import { ViewDemographicData } from "@/requests/viewDemographicData";
-import UserDataZone from "./userdatazone";
-import UserEditZone from "./usereditzone";
 import DemographicDataZone from "./demographic.datazone";
 import DemographicEditZone from "./demographic.editzone";
 import CustomDataGrid from "@/lists/customDataGrid";
+import { DemographicData } from "@/types/demographicdata";
+import { User } from "@/types/user";
+import UserDataZone from "./userdatazone";
+import UserEditZone from "./usereditzone";
 
 export default function DashboardPage() {
   const [demographicData, setDemographicData] =
