@@ -9,7 +9,7 @@ import { ReportViewer } from "./reportviewer";
 import { ViewUserReports } from "@/requests/viewuserreport";
 import CustomDataGrid from "@/lists/customDataGrid";
 import CustomReportGrid from "@/lists/customReportGrid";
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
 export default function DashboardPage() {
   const [patients, setPatients] = useState<Patient[]>([]);
@@ -19,7 +19,7 @@ export default function DashboardPage() {
   const [reports, setReports] = useState<Report[]>([]);
   const [selectedReportID, setselectedReportID] = useState<number | null>(null);
 
-  const selectedReport = reports.find((r) => r.id === selectedReportID);
+  const selectedReport = reports.find((r) => r.reportId === selectedReportID);
 
   // Fetch ALL patients on load
   useEffect(() => {

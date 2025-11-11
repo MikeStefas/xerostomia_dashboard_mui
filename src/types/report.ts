@@ -1,5 +1,5 @@
 export type Report = {
-  id: number;
+  reportId: number;
   userID: number;
   email: string;
   createdAt: string; // ISO date string

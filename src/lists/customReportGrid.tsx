@@ -11,10 +11,9 @@ function CustomReportGrid({
 }) {
   //id needed for datagrid
   const rows = reports.map((report) => ({
-    id: report.id,
-    reportID: report.id,
+    id: report.reportId,
+    reportId: report.reportId,
     userID: report.userID,
-    email: report.email,
     createdAt: report.createdAt,
     tongue: report.tongue,
     tonguePercentage: report.tonguePercentage,
@@ -26,8 +25,8 @@ function CustomReportGrid({
     painPercentage: report.painPercentage,
   }));
   const columns: GridColDef[] = [
-    { field: "reportID", headerName: "reportID", width: 70 },
-    { field: "email", headerName: "Email", width: 130 },
+    { field: "reportId", headerName: "reportID", width: 70 },
+    { field: "userID", headerName: "userID", width: 70 },
     { field: "createdAt", headerName: "Date", width: 130 },
     { field: "tongue", headerName: "Tongue", width: 130 },
     { field: "tonguePercentage", headerName: "Tongue %", width: 130 },
@@ -44,7 +43,7 @@ function CustomReportGrid({
       columns={columns}
       onRowClick={(params) => {
         // params.row contains the entire row object
-        setSelectedReportID(params.row.reportID);
+        setSelectedReportID(params.row.reportId);
       }}
     ></DataGrid>
   );
