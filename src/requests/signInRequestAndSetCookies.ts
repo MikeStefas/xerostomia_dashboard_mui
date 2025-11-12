@@ -29,7 +29,7 @@ export async function SignInRequest(email: string, password: string) {
     const decoded = await jwtDecode<TokenPayload>(result["access_token"]);
 
     //only block USERS. CLINICIAN/ADMIN can signin
-    if (decoded.role === "USER") {
+    if (decoded.role === "PATIENT") {
       return "You are not a clinician";
     }
     const access_token = result["access_token"];

@@ -23,7 +23,7 @@ export default function PairPage() {
   useEffect(() => {
     const fetchPC = async () => {
       const [fetchedPatients, dataC] = await Promise.all([
-        ViewUsers({ chooseRole: "USER", ofClinicianID: null }),
+        ViewUsers({ chooseRole: "PATIENT", ofClinicianID: null }),
         ViewUsers({ chooseRole: "CLINICIAN", ofClinicianID: null }),
       ]);
       setPatients(fetchedPatients);

@@ -84,7 +84,7 @@ export default function CreateUserPage() {
             <RadioGroup
               aria-labelledby="role-label"
               name="role"
-              defaultValue={"USER"}
+              defaultValue={"PATIENT"}
             >
               <FormControlLabel
                 value="CLINICIAN"
@@ -93,9 +93,9 @@ export default function CreateUserPage() {
               />
 
               <FormControlLabel
-                value="USER"
+                value="PATIENT"
                 control={<Radio />}
-                label="User"
+                label="Patient"
                 defaultChecked
               />
             </RadioGroup>

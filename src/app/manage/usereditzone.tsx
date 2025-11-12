@@ -49,7 +49,7 @@ export default function UserEditZone({
 
       //reload ONLY if it was successful
       if (res === "Success") {
-        alert(res + " .Reloading ...");
+        alert(res + ". Reloading ...");
         window.location.reload();
       } else {
         alert(res);
@@ -110,11 +110,15 @@ export default function UserEditZone({
               onChange={(e) =>
                 setFormData({
                   ...formData,
-                  role: e.target.value as "USER" | "CLINICIAN",
+                  role: e.target.value as "PATIENT" | "CLINICIAN",
                 })
               }
             >
-              <FormControlLabel value="USER" control={<Radio />} label="User" />
+              <FormControlLabel
+                value="PATIENT"
+                control={<Radio />}
+                label="Patient"
+              />
               <FormControlLabel
                 value="CLINICIAN"
                 control={<Radio />}

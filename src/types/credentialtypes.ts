@@ -11,10 +11,7 @@ export type FormState =
   | undefined;
 
 export const SigninFormSchema = z.object({
-  email: z
-    .string()
-    .email({ message: "Please enter a valid email." })
-    .trim(),
+  email: z.string().email({ message: "Please enter a valid email." }).trim(),
   password: z
     .string()
     .min(8, { message: "Be at least 8 characters long" })
@@ -28,10 +25,7 @@ export const SigninFormSchema = z.object({
 });
 
 export const SignupFormSchema = z.object({
-  email: z
-    .string()
-    .email({ message: "Please enter a valid email." })
-    .trim(),
+  email: z.string().email({ message: "Please enter a valid email." }).trim(),
   password: z
     .string()
     .min(8, { message: "Be at least 8 characters long" })
@@ -42,18 +36,12 @@ export const SignupFormSchema = z.object({
       message: "Contain at least one number.",
     })
     .trim(),
-  firstName: z
-  .string()
-  .min(1, { message: "Must not be empty!" })
-  .trim(),
-  lastName: z
-  .string()
-  .min(1, { message: "Must not be empty!" })
-  .trim()
+  firstName: z.string().min(1, { message: "Must not be empty!" }).trim(),
+  lastName: z.string().min(1, { message: "Must not be empty!" }).trim(),
 });
 
 export enum Role {
   ADMIN = "ADMIN",
   CLINICIAN = "CLINICIAN",
-  USER = "USER",
+  PATIENT = "PATIENT",
 }

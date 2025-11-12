@@ -4,5 +4,5 @@ export type Patient = {
   lastName: string;
   email: string;
   institution: " ";
-  role: "USER";
+  role: "PATIENT";
 };

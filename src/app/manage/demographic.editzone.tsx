@@ -85,7 +85,7 @@ export default function DemographicEditZone({
         );
         //alert ONLY if it was successful else display error
         if (res === "Success") {
-          alert(res + " .Reloading ...");
+          alert(res + ". Reloading ...");
           window.location.reload();
         } else {
           alert(res);

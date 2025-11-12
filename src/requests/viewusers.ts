@@ -7,7 +7,7 @@ export async function ViewUsers({
   chooseRole,
   ofClinicianID,
 }: {
-  chooseRole: "ANY" | "CLINICIAN" | "USER" | null;
+  chooseRole: "ANY" | "CLINICIAN" | "PATIENT" | null;
   ofClinicianID: number | null;
 }) {
   {

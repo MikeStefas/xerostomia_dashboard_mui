@@ -24,7 +24,10 @@ export default function DashboardPage() {
   // Fetch ALL patients on load
   useEffect(() => {
     const fetchPatients = async () => {
-      const data = await ViewUsers({ chooseRole: "USER", ofClinicianID: null }); //if role= CLINICIAN, parameters are not needed
+      const data = await ViewUsers({
+        chooseRole: "PATIENT",
+        ofClinicianID: null,
+      }); //if role= CLINICIAN, parameters are not needed
       setPatients(data);
     };
     fetchPatients();
