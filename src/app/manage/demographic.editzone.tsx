@@ -88,6 +88,7 @@ export default function DemographicEditZone({
           alert(res + ". Reloading ...");
           window.location.reload();
         } else {
+          console.log(res);
           alert(res);
         }
       } else {
@@ -113,7 +114,9 @@ export default function DemographicEditZone({
     }
   };
 
-  return (
+  return selectedUser?.role === "CLINICIAN" ? (
+    <Box></Box>
+  ) : (
     <Box sx={{ p: 2, flex: 1 }}>
       <Divider sx={{ my: 2 }} />
       <Box
@@ -147,11 +150,6 @@ export default function DemographicEditZone({
               label="Female"
             />
             <FormControlLabel value="male" control={<Radio />} label="Male" />
-            <FormControlLabel
-              value="missing"
-              control={<Radio />}
-              label="Missing"
-            />
           </RadioGroup>
         </FormControl>
 

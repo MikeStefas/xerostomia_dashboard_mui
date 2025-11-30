@@ -12,9 +12,11 @@ export default function DemographicDataZone({
   setEditingMode: (editingMode: boolean) => void;
   demographicData: DemographicData | null;
 }) {
+  if (!selectedUser) return null;
+
   return (
     <Box sx={{ p: 2, flex: 1 }}>
-      {selectedUser ? (
+      {selectedUser.role !== "CLINICIAN" ? (
         <Box>
           <Divider sx={{ my: 2 }} />
           <Typography variant="h6">Demographic Data</Typography>
@@ -36,7 +38,13 @@ export default function DemographicDataZone({
           </Button>
         </Box>
       ) : (
-        " "
+        <Button
+          sx={{ p: 2, borderRadius: "10px" }}
+          onClick={() => setEditingMode(true)}
+        >
+          <EditIcon />
+          Edit mode
+        </Button>
       )}
     </Box>
   );

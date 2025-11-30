@@ -11,6 +11,8 @@ import { DemographicData } from "@/types/demographicdata";
 import { User } from "@/types/user";
 import UserDataZone from "./userdatazone";
 import UserEditZone from "./usereditzone";
+import { get } from "http";
+import { getRoleFromCookie } from "@/tokenSessionFuncs/getRoleFromCookie";
 
 export default function DashboardPage() {
   const [demographicData, setDemographicData] =
@@ -21,11 +23,15 @@ export default function DashboardPage() {
   const [selectedUserID, setSelectedUserID] = useState<number>(0);
   const selectedUser = users.find((r) => r.userID === selectedUserID) ?? null;
 
+  const [role, setRole] = useState<string>("");
   // Fetch all users on page load
   useEffect(() => {
     const fetchAllUsers = async () => {
-      const data = await ViewUsers({ chooseRole: "ANY", ofClinicianID: null });
-      setUsers(data);
+      const userData = await ViewUsers({
+        chooseRole: "ANY",
+        ofClinicianID: null,
+      });
+      setUsers(userData);
     };
     fetchAllUsers();
   }, []);
@@ -33,8 +39,10 @@ export default function DashboardPage() {
   // Fetch demographic data when user changes
   useEffect(() => {
     const fetchDemographicData = async () => {
-      const data = await ViewDemographicData(selectedUser?.userID ?? 0);
-      setDemographicData(data);
+      const demographicData = await ViewDemographicData(
+        selectedUser?.userID ?? 0
+      );
+      setDemographicData(demographicData);
     };
     fetchDemographicData();
   }, [selectedUser]);
