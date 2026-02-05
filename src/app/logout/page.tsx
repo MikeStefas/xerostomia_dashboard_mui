@@ -1,5 +1,5 @@
 'use client';
-import { LogoutFunc } from "@/tokenSessionFuncs/logout";
+import { LogoutFunc } from "@/session/logout";
 import {  useEffect } from "react";
 
 export default function LogoutPage() {

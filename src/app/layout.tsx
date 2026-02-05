@@ -5,10 +5,10 @@ import {
   BRANDING,
   NAVIGATION_ADMIN,
   NAVIGATION_CLINICIAN,
-} from "../appProvider/appproviderPROPS";
+} from "../providers/appproviderPROPS";
 import React, { Suspense, useEffect, useState } from "react";
-import AuthGuard from ".././Guards/AuthGuard";
-import { getRoleFromCookie } from "@/tokenSessionFuncs/getRoleFromCookie";
+import SessionProvider from "../providers/SessionProvider";
+import { getRoleFromCookie } from "@/features/auth/api/getRoleFromCookie";
 import CircularProgress from "@mui/material/CircularProgress";
 
 //Root Layout
@@ -46,7 +46,7 @@ export default function RootLayout({
               {/* Unable to access the webapp without being logged in.
               No role == no access_token*/}
 
-              <AuthGuard role={role}>{children}</AuthGuard>
+              <SessionProvider role={role}>{children}</SessionProvider>
             </NextAppProvider>
           </AppRouterCacheProvider>
         </Suspense>
