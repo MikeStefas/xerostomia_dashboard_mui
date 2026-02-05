@@ -32,7 +32,6 @@ export default function DashboardPage() {
           mt: 2,
         }}
       >
-        {/* Reports */}
         <Card
           sx={{
             flex: "1 1 300px",
@@ -68,7 +67,6 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
 
-        {/* Create User - Admin only */}
         {role === "ADMIN" && (
           <Card
             sx={{
@@ -97,7 +95,6 @@ export default function DashboardPage() {
           </Card>
         )}
 
-        {/* Manage Users - Admin only */}
         {role === "ADMIN" && (
           <Card
             sx={{
@@ -126,7 +123,6 @@ export default function DashboardPage() {
           </Card>
         )}
 
-        {/* Manage Pairs - Admin only */}
         {role === "ADMIN" && (
           <Card
             sx={{

@@ -30,5 +30,5 @@ export const useFetchPairs = () => {
     fetchPatients();
   }, [selectedClinicianID]);
 
-  return { patients, clinicians, setSelectedClinicianID };
+  return { patients, clinicians, selectedClinicianID, setSelectedClinicianID };
 }

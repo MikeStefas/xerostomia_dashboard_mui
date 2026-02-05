@@ -1,9 +1,7 @@
 "use server";
 
-import { BACKEND_URL } from "@/constants";
-import { SignupFormSchema } from "../types";
-import { cookies } from "next/headers";
-import { HandleTokenRefreshIfNeeded } from "./handleTokenRefreshIfNeeded";
+import { SignupFormSchema } from "@/features/auth/types";
+import { customFetch } from "@/custom-fetch";
 
 export async function createUser(
   email: string,
@@ -13,11 +11,6 @@ export async function createUser(
   role: string,
   institution: string
 ) {
-  await HandleTokenRefreshIfNeeded();
-
-  const cookieStore = await cookies();
-  const access_token = cookieStore.get("access_token")?.value || "";
-
   const data = {
     email: email,
     password: password,
@@ -35,12 +28,8 @@ export async function createUser(
   }
 
   //request to signin
-  const response = await fetch(`${BACKEND_URL}/auth/create-user`, {
+  const response = await customFetch("/auth/create-user", {
     method: "POST",
-    headers: {
-      Authorization: `Bearer ${access_token}`,
-      "Content-Type": "application/json",
-    },
     body: JSON.stringify(data),
   });
 

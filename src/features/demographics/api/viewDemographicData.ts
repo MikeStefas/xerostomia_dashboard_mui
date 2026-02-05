@@ -1,26 +1,12 @@
 "use server";
-import { cookies } from "next/headers";
-import { BACKEND_URL } from "../../../constants";
-import { HandleTokenRefreshIfNeeded } from "@/features/auth/api/handleTokenRefreshIfNeeded";
+import { customFetch } from "@/custom-fetch";
 
 export async function ViewDemographicData(userID: number) {
-  await HandleTokenRefreshIfNeeded();
-
-  const cookieStore = await cookies();
-  const access_token = cookieStore.get("access_token")?.value || "";
-
   //fetch data
-  const response = await fetch(
-    `${BACKEND_URL}/demographics/view-demographic-data`,
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${access_token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userID: userID }),
-    }
-  );
+  const response = await customFetch("/demographics/view-demographic-data", {
+    method: "POST",
+    body: JSON.stringify({ userID: userID }),
+  });
 
   if (response.ok) {
     const text = await response.text();

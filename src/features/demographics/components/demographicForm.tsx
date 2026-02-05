@@ -18,7 +18,7 @@ import { User } from "@/features/users/types";
 import { handleSave } from "../hooks/handleSave";
 import { useHandleForm } from "../hooks/handleForm";
 
-export default function DemographicEditZone({
+export default function DemographicForm({
   selectedUser,
   setEditingMode,
   demographicData,

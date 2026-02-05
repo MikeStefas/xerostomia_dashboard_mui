@@ -1,38 +1,24 @@
 "use server";
-
-import { HandleTokenRefreshIfNeeded } from "@/features/auth/api/handleTokenRefreshIfNeeded";
-import { BACKEND_URL } from "../../../constants";
-import { cookies } from "next/headers";
 import { DemographicData } from "../types";
+import { customFetch } from "@/custom-fetch";
 
 export async function UpdateDemographicRequest(
   formData: DemographicData,
   currentUserID: number
 ) {
-  {
-    await HandleTokenRefreshIfNeeded();
+  // finaly fount the problem( it was a string)
+  formData.yearOfBirth = Number(formData?.yearOfBirth);
 
-    const cookieStore = await cookies();
-    const access_token = cookieStore.get("access_token")?.value || "";
+  const payload = { ...formData, userID: currentUserID ?? 0 };
 
-    // finaly fount the problem( it was a string)
-    formData.yearOfBirth = Number(formData?.yearOfBirth);
+  const response = await customFetch(
+    "/demographics/update-demographic-data",
+    {
+      method: "PATCH",
+      body: JSON.stringify(payload),
+    }
+  );
 
-    const payload = { ...formData, userID: currentUserID ?? 0 };
-
-    const response = await fetch(
-      `${BACKEND_URL}/demographics/update-demographic-data`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${access_token}`,
-        },
-        body: JSON.stringify(payload),
-      }
-    );
-
-    const result = await response.json();
-    return result.message;
-  }
+  const result = await response.json();
+  return result.message;
 }

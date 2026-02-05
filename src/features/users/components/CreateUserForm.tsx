@@ -1,6 +1,5 @@
 "use client";
 
-
 import {
   Box,
   TextField,
@@ -11,10 +10,13 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
+  Stack,
+  IconButton,
 } from "@mui/material";
-import { createUser } from "@/features/auth/api/createUser";
+import CloseIcon from "@mui/icons-material/Close";
+import { createUser } from "../api/createUser";
 
-export default function CreateUserPage() {
+export default function CreateUserForm({ onCancel, onSuccess }: { onCancel: () => void, onSuccess: () => void }) {
   const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -35,27 +37,40 @@ export default function CreateUserPage() {
       user.role!.toString(),
       user.institution!.toString()
     );
-    alert(JSON.stringify(result));
+    
+    if (result === "User created successfully" || result.status === 201) {
+      alert("User created successfully");
+      onSuccess();
+    } else {
+      alert(JSON.stringify(result));
+    }
   };
 
   return (
     <Box
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      minHeight="100%"
+      sx={{
+        p: 3,
+        border: "1px solid",
+        borderColor: "divider",
+        borderRadius: 2,
+        backgroundColor: "background.paper",
+        position: "relative",
+      }}
     >
+      <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
+        <Typography variant="h5">Create New User</Typography>
+        <IconButton onClick={onCancel}>
+          <CloseIcon />
+        </IconButton>
+      </Stack>
+
       <Box
         component="form"
         onSubmit={handleSignUp}
         display="flex"
         flexDirection="column"
         gap={2}
-        width={400}
       >
-        <Typography variant="h5" textAlign="center">
-          Create User
-        </Typography>
         <TextField name="firstName" label="First Name" required fullWidth />
         <TextField name="lastName" label="Last Name" required fullWidth />
         <TextField
@@ -95,7 +110,6 @@ export default function CreateUserPage() {
               value="PATIENT"
               control={<Radio />}
               label="Patient"
-              defaultChecked
             />
           </RadioGroup>
         </FormControl>

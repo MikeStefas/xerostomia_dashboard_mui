@@ -1,21 +1,10 @@
 "use server";
-import { cookies } from "next/headers";
-import { BACKEND_URL } from "../../../constants";
-import { HandleTokenRefreshIfNeeded } from "@/features/auth/api/handleTokenRefreshIfNeeded";
+import { customFetch } from "@/custom-fetch";
 
 export async function ViewUserReports(userID: number) {
-  await HandleTokenRefreshIfNeeded();
-
-  const cookieStore = await cookies();
-  const access_token = cookieStore.get("access_token")?.value || "";
-
   //fetch data
-  const response = await fetch(`${BACKEND_URL}/reports/view-user-reports`, {
+  const response = await customFetch("/reports/view-user-reports", {
     method: "POST",
-    headers: {
-      Authorization: `Bearer ${access_token}`,
-      "Content-Type": "application/json",
-    },
     body: JSON.stringify({ userID: userID }),
   });
 

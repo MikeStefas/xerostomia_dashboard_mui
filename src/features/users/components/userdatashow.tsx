@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { User } from "../types";
 
-export default function UserDataZone({
+export default function UserDataShow({
   selectedUser,
 }: {
   selectedUser: User | null;

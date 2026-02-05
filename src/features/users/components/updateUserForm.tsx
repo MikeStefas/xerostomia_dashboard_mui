@@ -12,7 +12,7 @@ import {
 import { User } from "../types";
 import { useFormHandler } from "../hooks/FormHandler";
 
-export default function UserEditZone({
+export default function UpdateUserForm({
   selectedUser,
 }: {
   selectedUser: User | null;

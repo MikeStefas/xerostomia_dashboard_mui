@@ -1,5 +1,5 @@
 'use client';
-import { LogoutFunc } from "@/session/logout";
+import { LogoutFunc } from "@/features/auth/api/logout";
 import {  useEffect } from "react";
 
 export default function LogoutPage() {

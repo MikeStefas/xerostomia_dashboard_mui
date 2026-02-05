@@ -7,17 +7,18 @@ export const useFetchUsers = () => {
     const [selectedUserID, setSelectedUserID] = useState<number>(0);
     const selectedUser = users.find((r) => r.userID === selectedUserID) ?? null;
 
+    const fetchAllUsers = async () => {
+        const userData = await ViewUsers({
+            chooseRole: "ANY",
+            ofClinicianID: null,
+        });
+        setUsers(userData);
+    };
+
     // Fetch all users on page load
     useEffect(() => {
-        const fetchAllUsers = async () => {
-            const userData = await ViewUsers({
-                chooseRole: "ANY",
-                ofClinicianID: null,
-            });
-            setUsers(userData);
-        };
         fetchAllUsers();
     }, []);
 
-    return { users, selectedUserID, setSelectedUserID, selectedUser };
+    return { users, selectedUserID, setSelectedUserID, selectedUser, refetch: fetchAllUsers };
 }

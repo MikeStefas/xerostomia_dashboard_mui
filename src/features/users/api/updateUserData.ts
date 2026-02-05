@@ -1,23 +1,12 @@
 "use server";
-import { BACKEND_URL } from "../../../constants";
-import { cookies } from "next/headers";
 import { User } from "../types";
-import { HandleTokenRefreshIfNeeded } from "@/features/auth/api/handleTokenRefreshIfNeeded";
+import { customFetch } from "@/custom-fetch";
 
 export async function UpdateUserDataRequest(formData: User) {
-  await HandleTokenRefreshIfNeeded();
-
-  const cookieStore = await cookies();
-  const access_token = cookieStore.get("access_token")?.value || "";
-
   const { ...DataSent } = formData;
 
-  const response = await fetch(`${BACKEND_URL}/user/update-user-data`, {
+  const response = await customFetch("/user/update-user-data", {
     method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${access_token}`,
-    },
     body: JSON.stringify(DataSent),
   });
 
