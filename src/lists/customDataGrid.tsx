@@ -95,6 +95,9 @@ function CustomDataGrid({
   }
   return (
     <DataGrid
+    sx={{
+      height: "50vh",
+    }}
       rows={rows}
       columns={columns}
       onRowClick={(params) => {

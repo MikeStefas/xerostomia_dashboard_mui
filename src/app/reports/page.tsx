@@ -9,7 +9,8 @@ import { ReportViewer } from "./reportviewer";
 import { ViewUserReports } from "@/requests/viewuserreport";
 import CustomDataGrid from "@/lists/customDataGrid";
 import CustomReportGrid from "@/lists/customReportGrid";
-import { Button, Typography } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 export default function DashboardPage() {
   const [patients, setPatients] = useState<Patient[]>([]);
@@ -49,47 +50,49 @@ export default function DashboardPage() {
         sx={{
           display: "flex",
           flexDirection: "column",
-
           width: "100%",
           height: "100%",
           overflowY: "auto",
         }}
       >
-        {/* Patient Grid */}
+        {selectedPatientID === null ? (
+          <Box
+            sx={{
+              marginTop: 4,
+              width: "90%",
+              mx: "auto",
+              flexShrink: 0,
+              height: "80vh",
+              marginBottom: 8,
+            }}
+          >
+            <Typography variant="h4">Select a Patient</Typography>
+            <CustomDataGrid
+              users={patients}
+              setSelecteduserID={setselectedPatientID}
+              includeDates={false}
+            />
+          </Box>
+        ) : null}
+        
+        {selectedPatientID !== null && selectedReportID === null ? (
         <Box
           sx={{
-            marginTop: 4,
             width: "90%",
             mx: "auto",
             flexShrink: 0,
-            height: "100%",
-            marginBottom: 8,
           }}
-        >
-          <Typography variant="h4">Select a Patient</Typography>
-          <CustomDataGrid
-            users={patients}
-            setSelecteduserID={setselectedPatientID}
-            includeDates={false}
-          />
-        </Box>
-
-        {/* Report Grid */}
-        <Box
-          sx={{
-            width: "90%",
-            mx: "auto",
-            flexShrink: 0,
-          }}
-        >
-          <Typography variant="h4">Select a Report</Typography>
+        > <Stack direction="row" justifyContent="space-between">
+          <Button onClick={() => setselectedPatientID(null)}> <ArrowBackIcon /> </Button>
+          <Typography variant="h4">{patients.find((p) => p.userID === selectedPatientID)?.firstName} {patients.find((p) => p.userID === selectedPatientID)?.lastName}{"'s Reports"}</Typography>
+          </Stack>
           <CustomReportGrid
             reports={reports}
             setSelectedReportID={setselectedReportID}
           />
         </Box>
+        ) : null}
 
-        {/* Report Viewer */}
         {selectedReport && (
           <Box
             sx={{
@@ -101,6 +104,9 @@ export default function DashboardPage() {
               minHeight: "400px",
             }}
           >
+            <Stack direction="row" justifyContent="space-between">
+              <Button onClick={() => setselectedReportID(null)}> <ArrowBackIcon /> </Button>
+            </Stack>
             <ReportViewer report={selectedReport} />
           </Box>
         )}
