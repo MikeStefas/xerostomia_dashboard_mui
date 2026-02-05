@@ -1,18 +1,13 @@
-import CustomDataGrid from "@/features/users/components/customDataGrid";
 import { Patient } from "@/features/users/types";
-import { Box, Typography } from "@mui/material";
+import UniversalDataGrid from "@/components/UniversalDataGrid";
 
 export default function SelectPatient({patients, setSelectedPatientID}: {patients: Patient[], setSelectedPatientID: (id: number) => void}) {
     return (
-        <Box sx={{ width: "90%" }}>
-          <Typography variant="h4" sx={{ mb: 2 }}>
-            Select a Patient to Pair
-          </Typography>
-          <CustomDataGrid
-            users={patients}
-            setSelecteduserID={setSelectedPatientID}
-            includeDates={false}
-          />
-        </Box>
+        <UniversalDataGrid
+            data={patients}
+            onRowClick={setSelectedPatientID}
+            title="Select a Patient to Pair"
+            backButton={false}
+        />
     );
 }

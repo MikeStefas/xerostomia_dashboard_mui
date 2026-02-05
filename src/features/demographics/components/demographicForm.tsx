@@ -30,7 +30,7 @@ export default function DemographicForm({
   const { formData, isNew, handleInputChange } = useHandleForm(demographicData);
 
   return selectedUser?.role === "CLINICIAN" ? (
-    <Box></Box>
+    null
   ) : (
     <Box sx={{ p: 2, flex: 1 }}>
       <Divider sx={{ my: 2 }} />
@@ -40,7 +40,6 @@ export default function DemographicForm({
       >
         <Typography variant="h6">Demographic Data</Typography>
 
-        {/* Year of Birth */}
         <TextField
           label="Year of birth"
           name="yearOfBirth"
@@ -50,7 +49,6 @@ export default function DemographicForm({
           onChange={handleInputChange}
         />
 
-        {/* Gender */}
         <FormControl>
           <FormLabel id="gender-label">Gender</FormLabel>
           <RadioGroup

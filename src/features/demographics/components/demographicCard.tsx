@@ -3,7 +3,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { DemographicData } from "../types";
 import { User } from "@/features/users/types";
 
-export default function DemographicDataShow({
+export default function DemographicCard({
   selectedUser,
   setEditingMode,
   demographicData,

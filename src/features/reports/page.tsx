@@ -2,11 +2,11 @@
 
 import Box from "@mui/material/Box";
 import { ReportViewer } from "@/features/reports/components/reportviewer";
-import CustomDataGrid from "@/features/users/components/customDataGrid";
 import CustomReportGrid from "@/features/reports/components/customReportGrid";
 import { Button, Stack, Typography } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useFetchPatients } from "@/features/reports/hooks/fetchPatients";
+import ReportView from "./components/patientsView";
 
 export default function ReportsPage() {
   const { patients, selectedPatientID, setselectedPatientID, reports, selectedReportID, setselectedReportID, selectedReport } = useFetchPatients();
@@ -14,31 +14,11 @@ export default function ReportsPage() {
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        width: "100%",
-        height: "100%",
         overflowY: "auto",
       }}
     >
       {selectedPatientID === null ? (
-        <Box
-          sx={{
-            marginTop: 4,
-            width: "90%",
-            mx: "auto",
-            flexShrink: 0,
-            height: "80vh",
-            marginBottom: 8,
-          }}
-        >
-          <Typography variant="h4">Select a Patient</Typography>
-          <CustomDataGrid
-            users={patients}
-            setSelecteduserID={setselectedPatientID}
-            includeDates={false}
-          />
-        </Box>
+        <ReportView patients={patients} setselectedPatientID={setselectedPatientID} />
       ) : null}
       
       {selectedPatientID !== null && selectedReportID === null ? (
