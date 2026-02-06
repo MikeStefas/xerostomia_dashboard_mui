@@ -14,11 +14,10 @@ export const useFetchUsers = () => {
         });
         setUsers(userData);
     };
-
-    // Fetch all users on page load
+    
     useEffect(() => {
         fetchAllUsers();
     }, []);
 
-    return { users, selectedUserID, setSelectedUserID, selectedUser, refetch: fetchAllUsers };
+    return { users, selectedUserID, setSelectedUserID, selectedUser };
 }

@@ -11,7 +11,7 @@ import CreateUserForm from "@/features/users/components/CreateUserForm";
 import UserManagement from "./components/userManagement";
 
 export default function UsersPage() {
-  const { users, setSelectedUserID, selectedUser, refetch } = useFetchUsers();
+  const { users, setSelectedUserID, selectedUser } = useFetchUsers();
   const { demographicData, editingMode, setEditingMode } = useFetchDemographicData(selectedUser?.userID ?? 0);
   const [isCreating, setIsCreating] = useState(false);
 
@@ -21,10 +21,7 @@ export default function UsersPage() {
         isCreating ? (
                 <CreateUserForm 
                     onCancel={() => setIsCreating(false)} 
-                    onSuccess={() => {
-                        setIsCreating(false);
-                        refetch();
-                    }}
+                    
                 />
         ) : (
             <UniversalDataGrid

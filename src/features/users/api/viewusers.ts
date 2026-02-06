@@ -9,16 +9,14 @@ export async function ViewUsers({
   chooseRole: "ANY" | "CLINICIAN" | "PATIENT" | null;
   ofClinicianID: number | null;
 }) {
-  const response = await customFetch("/user/view-users", {
-    method: "POST",
-    body: JSON.stringify({
-      chooseRole: chooseRole,
-      ofClinicianID: ofClinicianID,
-    }),
+  const response = await customFetch("/user/view-users/" + chooseRole + "/" + ofClinicianID, {
+    method: "GET",
   });
+  console.log(response);
 
   if (response.ok) {
     const result = await response.json();
+    console.log(result);
     return result;
   } else {
     throw new Error("Failed to fetch data");

@@ -16,7 +16,7 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import { createUser } from "../api/createUser";
 
-export default function CreateUserForm({ onCancel, onSuccess }: { onCancel: () => void, onSuccess: () => void }) {
+export default function CreateUserForm({ onCancel }: { onCancel: () => void }) {
   const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -38,9 +38,9 @@ export default function CreateUserForm({ onCancel, onSuccess }: { onCancel: () =
       user.institution!.toString()
     );
     
-    if (result === "User created successfully" || result.status === 201) {
+    if (result === "successful" || result.status === 201) {
       alert("User created successfully");
-      onSuccess();
+      window.location.reload();
     } else {
       alert(JSON.stringify(result));
     }
