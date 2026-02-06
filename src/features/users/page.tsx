@@ -49,7 +49,7 @@ export default function UsersPage() {
             setSelectedUserID={setSelectedUserID}
             editingMode={editingMode}
             setEditingMode={setEditingMode}
-            demographicData={demographicData!}
+            demographicData={demographicData}
         />
       )}
     </>

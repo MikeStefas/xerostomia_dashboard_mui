@@ -18,7 +18,7 @@ export default function UserManagement({
     setSelectedUserID: (id: number) => void;
     editingMode: boolean;
     setEditingMode: (editingMode: boolean) => void;
-    demographicData: DemographicData;
+    demographicData: DemographicData | null;
 }) {
     return (
         <Box>

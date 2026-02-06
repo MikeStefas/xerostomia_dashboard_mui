@@ -23,10 +23,13 @@ export default function DemographicCard({
 
           <Typography>
             <strong>Year of birth:</strong>{" "}
-            {demographicData?.yearOfBirth ?? "N/A"}
+            {demographicData?.yearOfBirth ? demographicData.yearOfBirth : "N/A"}
           </Typography>
           <Typography>
-            <strong>Gender:</strong> {demographicData?.gender ?? "N/A"}
+            <strong>Gender:</strong>{" "}
+            {demographicData?.gender && demographicData.gender !== "Missing"
+              ? demographicData.gender
+              : "N/A"}
           </Typography>
 
           <Button

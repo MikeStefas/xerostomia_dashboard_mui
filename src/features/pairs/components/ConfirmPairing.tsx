@@ -37,7 +37,7 @@ export default function ConfirmPairing({selectedPatient, selectedClinician, setS
                 clinicianID: selectedClinician.userID,
               });
               alert(result);
-              if (result === "Successfully paired" || result.includes("Success")) {
+              if (result === "Users are now paired" || result.includes("Success")) {
                 setSelectedPatientID(null);
                 setSelectedClinicianID(null);
               }

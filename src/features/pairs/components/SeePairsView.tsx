@@ -16,7 +16,7 @@ export default function SeePairsView() {
           onRowClick={() => {}}
           title="Paired Patients"
           backButton={true}
-          onBack={() => setSelectedClinicianID(0)} 
+          onBack={() => setSelectedClinicianID(null)} 
           includeDates={false}
         />
       )}
