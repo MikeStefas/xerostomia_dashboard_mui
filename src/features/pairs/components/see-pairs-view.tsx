@@ -1,7 +1,7 @@
 "use client";
 
-import { useFetchPairs } from "@/features/pairs/hooks/fetchPairs";
-import UniversalDataGrid from "@/components/UniversalDataGrid";
+import { useFetchPairs } from "@/features/pairs/hooks/fetch-pairs";
+import UniversalDataGrid from "@/components/universal-data-grid";
 
 export default function SeePairsView() {
   const { patients, clinicians, selectedClinicianID, setSelectedClinicianID } = useFetchPairs();

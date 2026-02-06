@@ -1,14 +1,14 @@
 "use client";
 
 import { Button } from "@mui/material";
-import { useFetchUsers } from "./hooks/FetchUsers";
-import { useFetchDemographicData } from "./hooks/FetchDemographicData";
+import { useFetchUsers } from "./hooks/fetch-users";
+import { useFetchDemographicData } from "./hooks/fetch-demographic-data";
 import { useState } from "react";
 import AddIcon from '@mui/icons-material/Add';
-import UniversalDataGrid from "@/components/UniversalDataGrid";
+import UniversalDataGrid from "@/components/universal-data-grid";
 
-import CreateUserForm from "@/features/users/components/CreateUserForm";
-import UserManagement from "./components/userManagement";
+import CreateUserForm from "@/features/users/components/create-user-form";
+import UserManagement from "./components/user-management";
 
 export default function UsersPage() {
   const { users, setSelectedUserID, selectedUser } = useFetchUsers();

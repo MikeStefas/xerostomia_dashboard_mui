@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { DemographicData } from "../../demographics/types";
-import { ViewDemographicData } from "../../demographics/api/viewDemographicData";
+import { ViewDemographicData } from "../../demographics/api/view-demographic-data";
 
 export const useFetchDemographicData = (userID: number) => {
     const [demographicData, setDemographicData] = useState<DemographicData | null>(null);

@@ -1,8 +1,8 @@
 "use client";
 import { useState} from "react";
-import { useFetchPatientsAndClinicians } from "@/features/pairs/hooks/fetchPatientsAndClinicians";
-import ConfirmPairing from "./ConfirmPairing";
-import UniversalDataGrid from "@/components/UniversalDataGrid";
+import { useFetchPatientsAndClinicians } from "@/features/pairs/hooks/fetch-patients-and-clinicians";
+import ConfirmPairing from "./confirm-pairing";
+import UniversalDataGrid from "@/components/universal-data-grid";
 
 export default function PairView() {
   const [selectedPatientID, setSelectedPatientID] = useState<number | null>(null);

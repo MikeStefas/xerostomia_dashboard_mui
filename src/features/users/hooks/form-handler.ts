@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { User } from "../types";
-import { UpdateUserDataRequest } from "../api/updateUserData";
+import { UpdateUserDataRequest } from "../api/update-user-data";
 
 export const useFormHandler = (selectedUser: User | null) => {
     const [formData, setFormData] = useState<User | null>(null);

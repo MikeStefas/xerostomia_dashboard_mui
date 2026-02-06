@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from 'react';
 import { Box, Divider, Tab, Tabs } from '@mui/material';
-import PairView from './components/PairView';
-import SeePairsView from './components/SeePairsView';
+import PairView from './components/pair-view';
+import SeePairsView from './components/see-pairs-view';
 export default function PairsPage() {
   const [tabIndex, setTabIndex] = useState(0);
 

@@ -1,9 +1,9 @@
 import { Box, Button, Stack, Typography } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import UpdateUserForm from "./updateUserForm";
-import DemographicForm from "@/features/demographics/components/demographicForm";
-import UserCard from "./userCard";
-import DemographicCard from "@/features/demographics/components/demographicCard";
+import UpdateUserForm from "./update-user-form";
+import DemographicForm from "@/features/demographics/components/demographic-form";
+import UserCard from "./user-card";
+import DemographicCard from "@/features/demographics/components/demographic-card";
 import { User } from "../types";
 import { DemographicData } from "@/features/demographics/types";
 

@@ -5,7 +5,7 @@ import {
   type AuthProvider,
 } from "@toolpad/core/SignInPage";
 import { signInTheme } from "@/themes/signintheme";
-import { useSignIn } from "./hooks/useSignIn";
+import { useSignIn } from "./hooks/use-sign-in";
 
 export default function SignInPage() {
   const { handleSignIn } = useSignIn();

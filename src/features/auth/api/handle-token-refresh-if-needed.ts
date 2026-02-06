@@ -1,4 +1,4 @@
-import { RefreshTokenRequest } from "@/features/auth/api/refreshToken";
+import { RefreshTokenRequest } from "@/features/auth/api/refresh-token";
 import { cookies } from "next/headers";
 import { jwtDecode } from "jwt-decode";
 

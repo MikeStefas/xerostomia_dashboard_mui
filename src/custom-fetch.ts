@@ -1,6 +1,6 @@
 "use server";
 import { cookies } from "next/headers";
-import { HandleTokenRefreshIfNeeded } from "./features/auth/api/handleTokenRefreshIfNeeded";
+import { HandleTokenRefreshIfNeeded } from "./features/auth/api/handle-token-refresh-if-needed";
 import { BACKEND_URL } from "./constants";
 
 export async function customFetch(endpoint: string, options: RequestInit = {}) {

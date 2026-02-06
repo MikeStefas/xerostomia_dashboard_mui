@@ -7,7 +7,7 @@ import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import LinkIcon from "@mui/icons-material/Link";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import { useEffect, useState } from "react";
-import { getRoleFromCookie } from "@/features/auth/api/getRoleFromCookie";
+import { getRoleFromCookie } from "@/features/auth/api/get-role-from-cookie";
 
 export default function DashboardPage() {
   const [role, setRole] = useState("");

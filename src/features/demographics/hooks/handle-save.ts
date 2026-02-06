@@ -1,5 +1,5 @@
-import { CreateDemographicDataRequest } from "../api/create.demographicsData";
-import { UpdateDemographicRequest } from "../api/update.demographicData";
+import { CreateDemographicDataRequest } from "../api/create-demographics-data";
+import { UpdateDemographicRequest } from "../api/update-demographic-data";
 import { User } from "@/features/users/types";
 import { DemographicData } from "../types";
 

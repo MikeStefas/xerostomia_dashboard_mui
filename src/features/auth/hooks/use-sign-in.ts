@@ -1,6 +1,6 @@
 "use client";
 import { AuthProvider, AuthResponse } from "@toolpad/core";
-import { SignInRequest } from "../api/signInRequestAndSetCookies";
+import { SignInRequest } from "../api/sign-in-request-and-set-cookies";
 import { useRouter } from "next/navigation";
 
 export const useSignIn = () => {

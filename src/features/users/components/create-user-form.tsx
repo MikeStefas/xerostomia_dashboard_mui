@@ -14,7 +14,7 @@ import {
   IconButton,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { createUser } from "../api/createUser";
+import { createUser } from "../api/create-user";
 
 export default function CreateUserForm({ onCancel }: { onCancel: () => void }) {
   const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {

@@ -1,5 +1,5 @@
 "use client";
-import { getRoleFromCookie } from "@/features/auth/api/getRoleFromCookie";
+import { getRoleFromCookie } from "@/features/auth/api/get-role-from-cookie";
 //check if the user is logged in by checking his role (set in signin/ page.tsx)
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect } from "react";

@@ -10,7 +10,7 @@ import {
   Radio,
 } from "@mui/material";
 import { User } from "../types";
-import { useFormHandler } from "../hooks/FormHandler";
+import { useFormHandler } from "../hooks/form-handler";
 
 export default function UpdateUserForm({
   selectedUser,

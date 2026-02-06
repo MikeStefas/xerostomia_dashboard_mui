@@ -15,8 +15,8 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import { DemographicData } from "../types";
 import { User } from "@/features/users/types";
-import { handleSave } from "../hooks/handleSave";
-import { useHandleForm } from "../hooks/handleForm";
+import { handleSave } from "../hooks/handle-save";
+import { useHandleForm } from "../hooks/handle-form";
 
 export default function DemographicForm({
   selectedUser,

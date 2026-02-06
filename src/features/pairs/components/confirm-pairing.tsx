@@ -1,6 +1,6 @@
 import { Button, Typography, Stack, Box } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { PairClinician } from "@/features/pairs/api/pairClinician";
+import { PairClinician } from "@/features/pairs/api/pair-clinician";
 import { Patient, Clinician } from "@/features/users/types";
 
 export default function ConfirmPairing({selectedPatient, selectedClinician, setSelectedPatientID, setSelectedClinicianID}: {selectedPatient: Patient, selectedClinician: Clinician, setSelectedPatientID: (id: number | null) => void, setSelectedClinicianID: (id: number | null) => void}) {

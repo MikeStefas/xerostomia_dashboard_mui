@@ -1,8 +1,8 @@
 "use client";
 
 import { ReportCard } from "@/features/reports/components/reportcard";
-import { useFetchPatients } from "@/features/reports/hooks/fetchPatients";
-import UniversalDataGrid from "@/components/UniversalDataGrid";
+import { useFetchPatients } from "@/features/reports/hooks/fetch-patients";
+import UniversalDataGrid from "@/components/universal-data-grid";
 
 export default function ReportsPage() {
   const { patients, selectedPatientID, setselectedPatientID, reports, selectedReportID, setselectedReportID, selectedReport } = useFetchPatients();

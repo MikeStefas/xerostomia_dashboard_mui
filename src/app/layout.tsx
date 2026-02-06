@@ -5,10 +5,10 @@ import {
   BRANDING,
   NAVIGATION_ADMIN,
   NAVIGATION_CLINICIAN,
-} from "../providers/appproviderPROPS";
+} from "../providers/appprovider-props";
 import React, { Suspense, useEffect, useState } from "react";
-import SessionProvider from "../providers/SessionProvider";
-import { getRoleFromCookie } from "@/features/auth/api/getRoleFromCookie";
+import SessionProvider from "../providers/session-provider";
+import { getRoleFromCookie } from "@/features/auth/api/get-role-from-cookie";
 import CircularProgress from "@mui/material/CircularProgress";
 
 //Root Layout
