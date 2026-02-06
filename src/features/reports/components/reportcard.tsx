@@ -1,10 +1,15 @@
 import { Report } from "../types";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import { Button, Stack } from "@mui/material";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-export function ReportViewer({ report }: { report: Report }) {
+export function ReportCard({ report, setselectedReportID }: { report: Report, setselectedReportID: (id: number | null) => void }) {
   return (
-    <Box sx={{ p: 2, flex: 1 }}>
+    <Box sx={{p:5}}>
+      <Stack direction="row" justifyContent="space-between">
+        <Button onClick={() => setselectedReportID(null)}> <ArrowBackIcon /> </Button>
+      </Stack>
       <Typography variant="h6">Report #{report.reportId}</Typography>
 
       <Typography>

@@ -1,11 +1,12 @@
 import { Box, Typography, Button, Stack } from "@mui/material";
 import { Clinician, Patient, User } from "@/features/users/types";
+import { Report } from "@/features/reports/types";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { ReactNode } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 interface UniversalDataGridProps {
-  data: User[] | Clinician[] | Patient[];
+  data: User[] | Clinician[] | Patient[] | Report[];
   onRowClick: (id: number) => void;
   title: string;
   backButton?: boolean;
@@ -25,32 +26,46 @@ export default function UniversalDataGrid({
 }: UniversalDataGridProps) {
 
   //id needed for datagrid
-  const rows = data.map((item) => ({
-    id: item.userID,
-    userID: item.userID,
-    firstName: item.firstName,
-    lastName: item.lastName,
-    role: "role" in item ? item.role : "", 
-    email: item.email,
-    institution: "institution" in item ? item.institution : "",
-    role_val: "role" in item ? item.role : "", 
+  const rows = data.map((item) => {
+    if ("reportId" in item) {
+      return {
+        id: item.reportId,
+        reportId: item.reportId,
+        userID: item.userID,
+        email: item.email,
+        createdAt: new Date(item.createdAt).toLocaleDateString() + ", " + new Date(item.createdAt).toLocaleTimeString(),
+      };
+    }
     
-    //date formatting
-    createdAt:
-      "createdAt" in item
-        ? new Date(item.createdAt).toLocaleDateString() +
-          ", " +
-          new Date(item.createdAt).toLocaleTimeString()
-        : "",
-    updatedAt:
-      "updatedAt" in item
-        ? new Date(item.updatedAt).toLocaleDateString() +
-          ", " +
-          new Date(item.updatedAt).toLocaleTimeString()
-        : "",
-  }));
+    return {
+      id: "userID" in item ? item.userID : Math.random(), 
+      userID: "userID" in item ? item.userID : undefined,
+      firstName: "firstName" in item ? item.firstName : "",
+      lastName: "lastName" in item ? item.lastName : "",
+      role: "role" in item ? item.role : "", 
+      email: item.email,
+      institution: "institution" in item ? item.institution : "",
+      role_val: "role" in item ? item.role : "", 
+      
+      //date formatting
+      createdAt:
+        "createdAt" in item
+          ? new Date(item.createdAt).toLocaleDateString() +
+            ", " +
+            new Date(item.createdAt).toLocaleTimeString()
+          : "",
+      updatedAt:
+        "updatedAt" in item && item.updatedAt
+          ? new Date(item.updatedAt).toLocaleDateString() +
+            ", " +
+            new Date(item.updatedAt).toLocaleTimeString()
+          : "",
+    };
+  });
 
-  const columns: GridColDef[] = [
+  const isReport = data.length > 0 && "reportId" in data[0];
+
+  const userColumns: GridColDef[] = [
     {
       field: "userID",
       headerName: "User ID",
@@ -90,7 +105,38 @@ export default function UniversalDataGrid({
     },
   ];
 
-  if (includeDates) {
+  const reportColumns: GridColDef[] = [
+    {
+      field: "reportId",
+      headerName: "Report ID",
+      width: 100,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "userID",
+      headerName: "User ID",
+      width: 100,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "email",
+      headerName: "Email",
+      flex: 1,
+      minWidth: 200,
+    },
+    {
+      field: "createdAt",
+      headerName: "Created At",
+      flex: 1,
+      minWidth: 180,
+    },
+  ];
+
+  const columns: GridColDef[] = isReport ? reportColumns : userColumns;
+
+  if (includeDates && !isReport) {
     columns.push({
       field: "createdAt",
       headerName: "Created At",

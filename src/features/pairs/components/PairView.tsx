@@ -1,10 +1,8 @@
 "use client";
 import { useState} from "react";
-import { Box } from "@mui/material";
 import { useFetchPatientsAndClinicians } from "@/features/pairs/hooks/fetchPatientsAndClinicians";
-import SelectPatient from "./SelectPatient";
-import SelectClinician from "./SelectClinician";
 import ConfirmPairing from "./ConfirmPairing";
+import UniversalDataGrid from "@/components/UniversalDataGrid";
 
 export default function PairView() {
   const [selectedPatientID, setSelectedPatientID] = useState<number | null>(null);
@@ -16,25 +14,15 @@ export default function PairView() {
   const selectedClinician = clinicians.find(c => c.userID === selectedClinicianID);
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        width: "100%",
-        overflowY: "auto",
-        p: 4,
-        height: '100%',
-      }}
-    >
+    <>
       {selectedPatientID === null ? (
-        <SelectPatient patients={patients} setSelectedPatientID={setSelectedPatientID} />
+        <UniversalDataGrid data={patients} onRowClick={(row) => setSelectedPatientID(row)} title="Patients" />
       ) : selectedClinicianID === null ? (
-        <SelectClinician clinicians={clinicians} setSelectedClinicianID={setSelectedClinicianID} />
+        <UniversalDataGrid data={clinicians} onRowClick={(row) => setSelectedClinicianID(row)} title="Clinicians" backButton={true} onBack={() => setSelectedPatientID(null)} />
       ) : (
         <ConfirmPairing selectedPatient={selectedPatient!} selectedClinician={selectedClinician!} setSelectedPatientID={setSelectedPatientID} setSelectedClinicianID={setSelectedClinicianID} />
       )}
-    </Box>
+    </>
   );
 }
 

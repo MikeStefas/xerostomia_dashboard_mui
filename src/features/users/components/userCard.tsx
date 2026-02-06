@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { User } from "../types";
 
-export default function UserDataShow({
+export default function UserCard({
   selectedUser,
 }: {
   selectedUser: User | null;
