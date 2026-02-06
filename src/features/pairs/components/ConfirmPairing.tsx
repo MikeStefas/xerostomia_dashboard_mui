@@ -5,7 +5,7 @@ import { Patient, Clinician } from "@/features/users/types";
 
 export default function ConfirmPairing({selectedPatient, selectedClinician, setSelectedPatientID, setSelectedClinicianID}: {selectedPatient: Patient, selectedClinician: Clinician, setSelectedPatientID: (id: number | null) => void, setSelectedClinicianID: (id: number | null) => void}) {
     return (
-        <Box sx={{ width: "90%", maxWidth: 600, textAlign: 'center', mt: 4 }}>
+        <Box sx={{ maxWidth: 600, textAlign: 'center', mx: 'auto' }}>
           <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 4 }}>
             <Button onClick={() => setSelectedClinicianID(null)}>
               <ArrowBackIcon />

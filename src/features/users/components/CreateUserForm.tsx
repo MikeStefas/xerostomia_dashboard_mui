@@ -47,7 +47,7 @@ export default function CreateUserForm({ onCancel, onSuccess }: { onCancel: () =
   };
 
   return (
-    <>
+    <Box sx={{ width: '30%', margin: 'auto', minWidth: 400 }}>
       <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
         <Typography variant="h5">Create New User</Typography>
         <IconButton onClick={onCancel}>
@@ -108,6 +108,6 @@ export default function CreateUserForm({ onCancel, onSuccess }: { onCancel: () =
           Submit
         </Button>
       </Box>
-    </>
+    </Box>
   );
 }

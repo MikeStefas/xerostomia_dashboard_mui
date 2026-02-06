@@ -6,7 +6,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 export function ReportCard({ report, setselectedReportID }: { report: Report, setselectedReportID: (id: number | null) => void }) {
   return (
-    <Box sx={{p:5}}>
+    <Box>
       <Stack direction="row" justifyContent="space-between">
         <Button onClick={() => setselectedReportID(null)}> <ArrowBackIcon /> </Button>
       </Stack>

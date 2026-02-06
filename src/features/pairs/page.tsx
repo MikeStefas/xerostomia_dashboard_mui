@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import { Box, Tab, Tabs } from '@mui/material';
+import { Box, Divider, Tab, Tabs } from '@mui/material';
 import PairView from './components/PairView';
 import SeePairsView from './components/SeePairsView';
 export default function PairsPage() {
@@ -10,7 +10,8 @@ export default function PairsPage() {
     setTabIndex(newValue);
   };
 
-  return (
+  return (<>
+    <Divider/>
     <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={tabIndex} onChange={handleTabChange} aria-label="pairs tabs" centered>
@@ -23,5 +24,6 @@ export default function PairsPage() {
         {tabIndex === 1 && <SeePairsView />}
       </Box>
     </Box>
+    </>
   );
 }

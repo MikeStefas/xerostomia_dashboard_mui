@@ -32,7 +32,7 @@ export default function DemographicForm({
   return selectedUser?.role === "CLINICIAN" ? (
     null
   ) : (
-    <Box sx={{ p: 2, flex: 1 }}>
+    <Box sx={{flex: 1, width: '30%', margin: 'auto', minWidth: 400 }}>
       <Divider sx={{ my: 2 }} />
       <Box
         component="form"

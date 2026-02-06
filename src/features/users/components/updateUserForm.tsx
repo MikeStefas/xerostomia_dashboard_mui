@@ -20,7 +20,7 @@ export default function UpdateUserForm({
   const {formData, handleInputChange, handleSave, setFormData} = useFormHandler(selectedUser);
 
   return (
-    <Box sx={{ p: 2, flex: 1 }}>
+    <Box sx={{ flex: 1, width: '30%', margin: 'auto', minWidth: 400 }}>
       {formData ? (
         <Box
           component="form"

@@ -154,12 +154,9 @@ export default function UniversalDataGrid({
     return (
         <Box
           sx={{
-            marginTop: 4,
-            width: "90%",
-            mx: "auto",
-            flexShrink: 0,
-            height: "80vh",
-            marginBottom: 8,
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
           }}
         >
           <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>

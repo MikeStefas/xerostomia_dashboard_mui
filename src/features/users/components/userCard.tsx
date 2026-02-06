@@ -7,7 +7,7 @@ export default function UserCard({
   selectedUser: User | null;
 }) {
   return (
-    <Box sx={{ p: 2, flex: 1 }}>
+    <Box sx={{ flex: 1 }}>
       {selectedUser ? (
         <Box>
           <Typography variant="h6">User Data</Typography>

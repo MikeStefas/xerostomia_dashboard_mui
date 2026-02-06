@@ -1,5 +1,5 @@
 "use server";
-import { TokenPayload } from "@/types/tokenpayload";
+import { TokenPayload } from "@/features/auth/types";
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 
